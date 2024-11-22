@@ -1,0 +1,23 @@
+<div class="container-fluid mt-5 ">
+    <div class="row">
+      <div class="col-md-2 sidebar border">
+        <ul class="list-group">
+          <li class="list-group-item" (click)="activeSection = 'profile'">Profile</li>
+          <li class="list-group-item" (click)="activeSection = 'astrologers'">Astrologers</li>
+          <li class="list-group-item" (click)="activeSection = 'client'">Client</li>
+        </ul>
+      </div>
+  
+      <div class="col-md-10 main-content">
+        <!-- Profile Section -->
+        <app-profile-comp *ngIf="activeSection === 'profile'"></app-profile-comp>
+  
+        <!-- Astrologers Section -->
+        <app-astrocomp *ngIf="activeSection === 'astrologers'"></app-astrocomp>
+  
+        <!-- Client Section -->
+        <app-client-comp *ngIf="activeSection === 'client'"></app-client-comp>
+      </div>
+    </div>
+  </div>
+  

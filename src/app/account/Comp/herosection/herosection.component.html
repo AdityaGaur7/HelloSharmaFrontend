@@ -1,0 +1,16 @@
+<div class="container py-5">
+    <div *ngFor="let section of contentSections" class="row align-items-center mb-5">
+      <!-- Image Section -->
+      <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+        <img [src]="section.imageUrl" alt="{{ section.title }}" class="img-fluid rounded shadow" />
+      </div>
+  
+      <!-- Content Section -->
+      <div class="col-lg-6 col-md-12">
+        <h2 class="mb-4">{{ section.title }}</h2>
+        <p>{{ section.text }}</p>
+        <button class="btn btn-primary mt-3">{{ section.buttonText }}</button>
+      </div>
+    </div>
+  </div>
+  

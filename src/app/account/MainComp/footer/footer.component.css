@@ -1,0 +1,35 @@
+footer {  
+    background-color: #f8f9fa; /* Light background */  
+    color: #343a40; /* Dark text */  
+  }  
+  
+  h5 {  
+    font-family: 'Arial', sans-serif; /* Change to your desired font */  
+    font-weight: bold; /* Bold font */  
+    margin-bottom: 1rem; /* Space below headings */  
+  }  
+  
+  ul {  
+    padding-left: 0; /* Remove default padding */  
+  }  
+  
+  ul li {  
+    list-style: none; /* Remove bullet points */  
+    
+  }  
+  ul li a{
+    text-decoration: none;
+  }
+  
+  .social-icons a {  
+    color: #343a40; /* Dark color for icons */  
+    text-decoration: none;  
+  }  
+  
+  .social-icons a:hover {  
+    color: #007bff; /* Change color on hover */  
+  }  
+  
+  .text-center p {  
+    margin-top: 1rem; /* Space above text */  
+  }

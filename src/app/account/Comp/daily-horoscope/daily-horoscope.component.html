@@ -1,0 +1,46 @@
+<div class="container">
+  <h2 class="heading">Daily Horoscope</h2>
+  <div class="horoscope-list">
+    <div class="flex border-b border-[#d4d0e7] px-4">
+      <button
+        *ngFor="let sign of zodiacSigns"
+        (click)="openHoroscope(sign.name)"
+        class="horoscope-item"
+      >
+        <div class="circle" [style.backgroundImage]="'url(' + sign.imgUrl + ')'"></div>
+        <p class="horoscope-name">{{ sign.name }}</p>
+      </button>
+    </div>
+  </div>
+
+    <div *ngIf="isLoading" class="loader-overlay">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="isModalOpen" class="modal-overlay" (click)="closeModal()">
+    <div class="horoscope-container" (click)="$event.stopPropagation()">
+      <div class="header">
+        <h1>Today's Horoscope</h1>
+        <button (click)="closeModal()" class="close-btn">Close</button>
+      </div>
+
+      <div class="content">
+        <h3>Prediction</h3>
+        <p>{{ selectedHoroscope?.prediction }}</p>
+
+        <h3>Lucky Numbers</h3>
+        <p>{{ selectedHoroscope?.number }}</p>
+
+        <h3>Lucky Colors</h3>
+        <p>{{ selectedHoroscope?.color }}</p>
+
+        <h3>Strengths</h3>
+        <p>{{ selectedHoroscope?.strength }}</p>
+
+        <h3>Weaknesses</h3>
+        <p>{{ selectedHoroscope?.weakness }}</p>
+      </div>
+    </div>
+  </div>
+</div>

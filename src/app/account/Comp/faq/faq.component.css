@@ -1,0 +1,10 @@
+.faq{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+}
+ .faq_title{
+    text-align: center;
+    padding: 5rem 0px 0px 0px ;
+}

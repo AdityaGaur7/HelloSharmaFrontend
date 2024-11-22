@@ -1,0 +1,77 @@
+
+
+<div style="padding-top: 90px; padding-bottom: 70px;">
+    <div class="signup-container">
+      <h2>Sign Up</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="signup()">
+        <div class="form-group">
+          <input type="text" name="firstName" placeholder="First Name" formControlName="firstName">
+          <div *ngIf="signupForm.get('firstName')?.dirty && signupForm.get('firstName')?.errors">
+            <div *ngFor="let error of getErrorMessage('firstName')" class="text-danger">
+              {{ error }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" name="lastName" placeholder="Last Name" formControlName="lastName">
+          <div *ngIf="signupForm.get('lastName')?.dirty && signupForm.get('lastName')?.errors">
+            <div *ngFor="let error of getErrorMessage('lastName')" class="text-danger">
+              {{ error }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email" formControlName="email">
+          <div *ngIf="signupForm.get('email')?.dirty && signupForm.get('email')?.errors">
+            <div *ngFor="let error of getErrorMessage('email')" class="text-danger">
+              {{ error }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" name="phone" placeholder="Mobile No." formControlName="phone">
+          <div *ngIf="signupForm.get('phone')?.dirty && signupForm.get('phone')?.errors">
+            <div *ngFor="let error of getErrorMessage('phone')" class="text-danger">
+              {{ error }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Password" formControlName="password">
+          <div *ngIf="signupForm.get('password')?.dirty && signupForm.get('password')?.errors">
+            <div *ngFor="let error of getErrorMessage('password')" class="text-danger">
+              {{ error }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword">
+          <div *ngIf="signupForm.get('confirmPassword')?.dirty && signupForm.get('confirmPassword')?.errors">
+            <div *ngFor="let error of getErrorMessage('confirmPassword')" class="text-danger">
+              {{ error }}
+            </div>
+          </div>
+        </div>
+  
+        <!-- Move the submit button inside the form -->
+        <div class="row">
+          <div class="existing-user">
+            <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+          </div>
+          <div class="existing-user">
+            <a routerLink="/login">
+              <i class="fas fa-user"></i> Log In
+            </a>
+          </div>
+        </div>
+  
+        <!-- Display error and success messages -->
+        <div class="error-message" *ngIf="errorMessage" [ngClass]="{ 'red-text': errorMessage }">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="registrationSuccess" class="success-message">
+          You are successfully registered, Go to Login!
+        </div>
+      </form>
+    </div>
+  </div>

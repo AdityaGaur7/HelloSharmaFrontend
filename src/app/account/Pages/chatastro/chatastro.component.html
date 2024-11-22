@@ -1,0 +1,53 @@
+<app-nav2></app-nav2>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 text-center mb-4 d-flex justify-content-center gap-5">
+      <button class="btn btn-warning btn-lg">Connect with Astrologer</button>
+      <h6 class="ml-3 d-flex align-items-center justify-content-center">Available balance: ₹0</h6>
+      <button class="btn btn-outline-success ml-3">Recharge</button>
+    </div>
+  </div>
+
+  <!-- Search, Filter, and Sort section -->
+  <div class="row mb-3 justify-content-between">
+    <div class="col-md-4 d-flex gap-2">
+      <app-filter (filterApplied)="onFilterApplied($event)"></app-filter>
+      <app-sort (sortChanged)="onSortChanged($event)"></app-sort>
+    </div>
+    <div class="col-md-4 text-right">
+      <input type="text" class="form-control d-inline" placeholder="Search name..." style="width: 70%;" (input)="onSearch($event)">
+      <button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+
+  <!-- Astrologer Cards -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let astrologer of filteredAstrologers">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <img [src]="astrologer.imageUrl" alt="{{ astrologer.name }}" class="rounded-circle mr-3" style="width: 60px; height: 60px;">
+            <div>
+              <h5>{{ astrologer.name }}</h5>
+              <p>{{ astrologer.expertise }}<br> {{ astrologer.languages }}</p>
+              <small>Exp: {{ astrologer.experience }}</small>
+            </div>
+            <span *ngIf="astrologer.status" class="badge badge-info ml-auto">{{ astrologer.status }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <p class="mb-0">Orders: {{ astrologer.orders }}</p>
+              <p class="mb-0 text-success" [ngClass]="{ 'text-danger': astrologer.price === 'FREE' }">{{ astrologer.price }}/min</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-success">Chat</button>
+              <button class="btn btn-outline-success">Call</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,23 @@
+<div class="filter-modal p-3 border rounded bg-light">
+    <h6 class="mb-4">Filter Astrologers</h6>
+    <div class="d-flex gap-4">
+
+   
+    <div class="mb-3">
+      <label for="expertise" class="form-label">Expertise:</label>
+      <select id="expertise" class="form-select" [(ngModel)]="selectedExpertise" (change)="applyFilter()">
+       <option value="">All</option>
+        <option *ngFor="let expertise of expertiseOptions" [value]="expertise">{{ expertise }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="languages" class="form-label">Languages:</label>
+      <select id="languages" class="form-select" [(ngModel)]="selectedLanguage" (change)="applyFilter()">
+        <option value="">All</option>
+        <option *ngFor="let language of languageOptions" [value]="language">{{ language }}</option>
+      </select>
+    </div>
+</div> 
+    <button class="btn btn-primary" (click)="applyFilter()">Apply Filters</button>
+  </div>
+  

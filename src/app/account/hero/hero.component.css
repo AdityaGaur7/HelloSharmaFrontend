@@ -1,0 +1,25 @@
+.container {  
+    background-color: #f8f9fa; /* Light background */  
+    padding: 50px 0; /* Vertical padding */  
+  }  
+  
+  h2 {  
+    font-family: 'Arial', sans-serif; /* Change to your desired font */  
+    font-weight: bold;  
+  }  
+  
+  h1 {  
+    font-family: 'Arial', sans-serif; /* Change to your desired font */  
+    font-weight: bold;  
+    font-size: 3rem; /* Adjust size as needed */  
+  }  
+  
+  .social-icons a {  
+    color: #343a40; /* Dark color for icons */  
+    text-decoration: none;  
+    font-size: 1.5rem; /* Icon size */  
+  }  
+  
+  .social-icons a:hover {  
+    color: #007bff; /* Change color on hover */  
+  }

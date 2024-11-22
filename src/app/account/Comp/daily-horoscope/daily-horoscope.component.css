@@ -1,0 +1,205 @@
+/* daily-horoscope.component.css */
+.container {
+  padding: 1rem;
+}
+
+.heading {
+  color: #100e1b;
+  font-size: 22px; /* Base font size */
+  font-weight: bold;
+  line-height: tight; /* Adjust as needed */
+  letter-spacing: -0.015em;
+  padding: 1rem 0 0.75rem; /* Top padding for spacing */
+}
+
+.horoscope-list {
+  padding-bottom: 1rem;
+}
+
+.flex {
+  display: flex; /* Ensure flex display */
+  overflow-x: auto; /* Allow horizontal scrolling if necessary */
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 3px solid #d4d0e7; /* Keep border styling */
+  gap: 28px; /* Space between items */
+}
+
+.horoscope-item {
+  display: flex;
+  border: none;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  justify-content: flex-start;
+  padding: 10px; /* Padding for spacing */
+  transition: border-color 0.3s;
+  text-decoration: none; /* Remove underline from links */
+}
+
+.horoscope-item.active {
+  border-color: #3b19e6; /* Active state border color */
+}
+
+.circle {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%;
+  background-color: #d1d5db; /* Default background color */
+  background-size: cover;
+  background-position: center;
+}
+
+.horoscope-name {
+  color: #5a4e97;
+  font-size: 0.875rem; /* Smaller font size for mobile */
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0.015em;
+}
+
+.horoscope-container {
+  font-family: "Space Grotesk", "Noto Sans", sans-serif;
+  color: whitesmoke;
+  background-color: white;
+  max-width: 90%; /* Allow the container to be fluid */
+  width: 512px; /* Maintain a maximum width */
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-image: url('../../../../assets/images/images/bg.png');
+  background-size: cover; /* Adjusts image to cover the entire overlay */
+  background-position: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.close-btn {
+  background-color: #f2f2f2;
+  color: #141414;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 16px;
+  cursor: pointer;
+}
+
+.content {
+  padding: 20px 0;
+}
+
+.content h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.content p {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+/* Loader animation */
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #555;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Styles */
+@media (max-width: 640px) {
+  .heading {
+      font-size: 24px; /* Adjust font size for small screens */
+  }
+
+  .horoscope-container {
+      max-width: 90%; /* Fluid width for small devices */
+      padding: 10px; /* Reduce padding for small devices */
+  }
+
+  .header h1 {
+      font-size: 20px; /* Smaller header font size */
+  }
+
+  .content h3 {
+      font-size: 16px; /* Smaller h3 font size */
+  }
+
+  .content p {
+      font-size: 14px; /* Smaller paragraph font size */
+  }
+}
+
+@media (min-width: 640px) {
+  .heading {
+      font-size: 28px; /* Larger font size for medium screens */
+  }
+
+  .horoscope-name {
+      font-size: 1rem; /* Adjusted font size for medium screens */
+  }
+
+  .circle {
+      width: 60px; /* Adjust size for larger screens */
+      height: 60px; /* Adjust size for larger screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading {
+      font-size: 32px; /* Further increase font size for larger screens */
+  }
+
+  .horoscope-name {
+      font-size: 1.125rem; /* Further increase font size for larger screens */
+  }
+
+  .circle {
+      width: 70px; /* Adjust size for larger screens */
+      height: 70px; /* Adjust size for larger screens */
+  }
+}

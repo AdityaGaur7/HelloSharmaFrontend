@@ -1,0 +1,36 @@
+<app-nav2></app-nav2>
+<!-- src/app/components/astromall.component.html -->
+<div class="container mt-4">
+  <h1 class="text-center">Astromall Shop</h1>
+  <p class="text-center">Shop Best Online Astrology Products And Services</p>
+
+  <div class="input-group mb-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Let's find what you're looking for..."
+      [(ngModel)]="searchText" 
+      (input)="filterProducts()" 
+      aria-label="Search"
+    />
+    <!-- Removed the search button since we want dynamic filtering -->
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of filteredProducts"> <!-- Use filteredProducts -->
+      <div class="card">
+        <img [src]="product.image" class="card-img-top" alt="{{ product.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <p class="card-text">{{ product.description }}</p>
+          <p class="text-danger">Starts at ₹{{ product.price }}</p>
+          <a [routerLink]="product.link" class="btn btn-primary">View Details</a>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">{{ product.tag }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

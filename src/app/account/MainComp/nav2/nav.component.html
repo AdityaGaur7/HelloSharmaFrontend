@@ -1,0 +1,90 @@
+<!-- <nav class="nav mt-5 border border-bottom">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <a routerLink="/" class="navbar-brand">
+          <h2 class="text-primary">HELLO SHARMAJI</h2>
+        </a>
+      </div>
+      <div class="col-md-6">
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/chatastro">Connect with Astrologer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/bookpooja">Book a Pooja <span class="badge bg-warning text-dark">New</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/astromall">Astromall</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-3 d-flex justify-content-end align-items-center">
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Eng
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+            <li><a class="dropdown-item" href="#">English</a></li>
+            <li><a class="dropdown-item" href="#">Hindi</a></li>
+          </ul>
+        </div>
+        <div class="ms-3">
+          <button class="btn btn-outline-primary" type="button">
+            <a routerLink="login" class="text-decoration-none text-primary"><i class="bi bi-person-circle"></i> Login</a>
+          </button>
+          <button class="btn btn-outline-primary" type="button">
+            <a routerLink="profile" class="text-decoration-none text-primary"><i class="bi bi-person-circle"></i> Profile</a>
+          </button>
+          <button class="btn btn-outline-danger" type="button" routerLink="/" (click)="onLogout()">
+            <i class="bi bi-person-circle"></i> Logout
+          </button>
+          <button class="btn btn-outline-primary" type="button">
+            <a routerLink="admin" class="text-decoration-none text-primary"><i class="bi bi-person-circle"></i> Admin</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav> -->
+<nav class="navbar">
+  <div class="navbar-left">
+    <a href="/"><span class="navbar-greeting">Hello Sharmaji</span></a>
+  </div>
+  <div class="navbar-links">
+    <a href="/chatastro">Connect with Astrologer</a>
+    <a href="/bookpooja">Book a Pooja</a>
+    <a href="/astromall">AstroMall</a>
+  </div>
+  <div class="navbar-buttons">
+    <a href="/signup"><button class="btn signup">Sign Up</button></a>
+    <a href="/login"><button class="btn logout">Login</button></a>
+  </div>
+  <div class="navbar-icons">
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <!-- <fa-icon [icon]="faGlobe"></fa-icon> -->
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+        
+        <li><a class="dropdown-item" href="#">English</a></li>
+        <li><a class="dropdown-item" href="#">Hindi</a></li>
+      </ul>
+              
+    </div>
+
+    <div class="dropdown">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <!-- <fa-icon [icon]="faUser"></fa-icon> -->
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="#">Logout</a></li>
+      </ul>
+          
+    </div>
+  </div>
+
+</nav>

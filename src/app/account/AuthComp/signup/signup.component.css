@@ -1,0 +1,78 @@
+
+
+.signup-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: 0 auto;
+}
+
+.signup-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-container input[type="text"],
+.signup-container input[type="email"],
+.signup-container input[type="number"],
+.signup-container input[type="password"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.signup-container button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #341688;
+  color: #ffffff;
+  cursor: pointer;
+  width: 100%;
+}
+
+.signup-container button:disabled {
+  background-color: #341688;
+  cursor: not-allowed;
+}
+
+.signup-container button:hover:enabled {
+  background-color: #f77c02;
+}
+
+.existing-user {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.existing-user a {
+  display: inline-block;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #341688;
+}
+
+.existing-user a:hover {
+  background-color: #f77c02;
+}
+
+.red-text {
+  color: red;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+}

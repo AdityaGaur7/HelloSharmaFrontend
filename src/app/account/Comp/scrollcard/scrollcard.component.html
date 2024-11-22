@@ -1,0 +1,24 @@
+<div class="container mt-4">  
+  <h1 class="text-center">Astrology Services</h1>  
+  <div class="row justify-content-center">  
+    <div class="col-md-8">  
+      <div class="d-flex align-items-center justify-content-between">  
+        <button class="btn btn-secondary" (click)="moveCard(-1)">&lt;</button>  
+        <div class="card-wrapper">  
+          <div class="card-container" [ngStyle]="{'transform': 'translateX(' + translateX + 'px)'}">  
+            <div class="card" *ngFor="let card of cards">  
+              <div class="card-body text-center">  
+                <div class="icon mb-3">  
+                  <i [ngClass]="card.icon"></i>  
+                </div>  
+                <h5 class="card-title">{{ card.title }}</h5>  
+                <p class="card-text">{{ card.description }}</p>  
+              </div>  
+            </div>  
+          </div>  
+        </div>  
+        <button class="btn btn-secondary" (click)="moveCard(1)">&gt;</button>  
+      </div>  
+    </div>  
+  </div>  
+</div>  

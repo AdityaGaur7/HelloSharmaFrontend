@@ -1,0 +1,47 @@
+
+<div style="padding-top: 100px;">
+  <div class="login-container">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <!-- Using username instead of email to handle both email and phone -->
+          <input type="text" name="username" id="username" placeholder="Enter Email or Mobile Number" formControlName="username">
+          <!-- Error message for username field -->
+          <div *ngIf="loginForm.get('username')?.dirty && loginForm.get('username')?.errors">
+              <div *ngIf="loginForm.get('username')?.hasError('invalidusername')" class="text-danger">
+                  Please enter a valid email address or mobile number.
+              </div>
+              <div *ngIf="loginForm.get('username')?.hasError('required')" class="text-danger">
+                  This field is required.
+              </div>
+          </div>
+
+          <input type="password" name="password" id="password" placeholder="Password" formControlName="password">
+          <!-- Error message for password field -->
+          <div *ngIf="loginForm.get('password')?.dirty && loginForm.get('password')?.errors">
+              <div *ngIf="loginForm.get('password')?.hasError('required')" class="text-danger">
+                  Password is required.
+              </div>
+          </div>
+
+          <div class="remember-me">
+              <input type="checkbox" id="remember-me">
+              <label for="remember-me">Remember Me</label>
+          </div> 
+
+          <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      </form>
+      <!-- Displaying an invalid login message -->
+      <div *ngIf="invalidLogin" class="error-message">
+          Invalid email or password. Please try again.
+      </div>
+
+      <div class="login-icons">
+          <a routerLink="/signup" class="signup-icon">
+              <i class="fas fa-user-plus"></i> Sign Up
+          </a>
+          <a href="#" class="forget-password-icon" style="margin-left: 10px;">
+              <i class="fas fa-question-circle"></i> Forget Password
+          </a>
+      </div>
+  </div>
+</div>

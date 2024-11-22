@@ -1,0 +1,113 @@
+<h2 class="text-center bg-gradient btn-dark border p-4">ADMIN DASHBOARD</h2>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Astrologer List</h2>
+
+  <!-- Toggle Button -->
+  <button class="btn btn-dark mb-3" (click)="toggleForm()">
+    {{ formVisible ? 'Hide Form' : 'Add New Astrologer' }}
+  </button>
+
+  <!-- Conditionally Show Form -->
+  <div *ngIf="formVisible">
+    <form [formGroup]="astroForm" (ngSubmit)="addOrUpdateAstrologer()">
+      <!-- ID (hidden field) -->
+      <input type="hidden" formControlName="id">
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Astrologer Name</label>
+        <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter astrologer name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="expertise" class="form-label">Expertise</label>
+        <input type="text" id="expertise" formControlName="expertise" class="form-control" placeholder="Enter expertise" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="languages" class="form-label">Languages</label>
+        <input type="text" id="languages" formControlName="languages" class="form-control" placeholder="Enter languages" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="experience" class="form-label">Experience (years)</label>
+        <input type="number" id="experience" formControlName="experience" class="form-control" placeholder="Enter experience" min="0" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="orders" class="form-label">Orders</label>
+        <input type="number" id="orders" formControlName="orders" class="form-control" placeholder="Enter number of orders" min="0" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Astrologer Price</label>
+        <input type="number" id="price" formControlName="price" class="form-control" placeholder="Enter astrologer price" step="0.01" min="0" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <input type="number" id="rating" formControlName="rating" class="form-control" placeholder="Enter rating" min="0" max="5" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select id="status" formControlName="status" class="form-select">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input type="file" id="image" (change)="handleImageUpload($event)" class="form-control" accept="image/*">
+        <small *ngIf="selectedImage" class="form-text text-success">Image selected: {{ selectedImage.name }}</small>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        {{ isEditing ? 'Update Astrologer' : 'Add Astrologer' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Astrologer List -->
+  <div class="mt-5">
+    <h3>Current Astrologers</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Expertise</th>
+          <th>Languages</th>
+          <th>Experience</th>
+          <th>Orders</th>
+          <th>Price</th>
+          <th>Rating</th>
+          <th>Status</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let astrologer of astrologers">
+          <td>{{ astrologer.id }}</td>
+          <td>{{ astrologer.name }}</td>
+          <td>{{ astrologer.expertise }}</td>
+          <td>{{ astrologer.languages }}</td>
+          <td>{{ astrologer.experience }}</td>
+          <td>{{ astrologer.orders }}</td>
+          <td>{{ astrologer.price }}</td>
+          <td>{{ astrologer.rating }}</td>
+          <td>{{ astrologer.status }}</td>
+          <td>
+            <img *ngIf="astrologer.imageUrl" [src]="astrologer.imageUrl" alt="{{ astrologer.name }}" class="img-thumbnail" style="max-width: 100px;">
+          </td>
+          <td>
+            <button (click)="editAstrologer(astrologer.id)" class="btn btn-warning">Edit</button>
+            <button (click)="deleteAstrologer(astrologer.id)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

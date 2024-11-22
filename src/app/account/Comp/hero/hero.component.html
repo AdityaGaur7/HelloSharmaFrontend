@@ -1,0 +1,31 @@
+<div class="container1">
+  <div class="image-container">
+    <div id="carouselExampleIndicators" class="carousel slide">
+      <div class="carousel-inner">
+        <div *ngFor="let image of images; let i = index" 
+             class="carousel-item" 
+             [class.active]="i === activeIndex">
+          <img class="carousel-image" [src]="image.url" [alt]="image.altText">
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" (click)="activeIndex = (activeIndex - 1 + images.length) % images.length">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </button>
+      <button class="carousel-control-next" (click)="activeIndex = (activeIndex + 1) % images.length">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="overlay">
+    <h1 class="heading">Welcome to Cosmic Insights</h1>
+    <p class="paragraph">Your most accurate and personal horoscope, ever. Get your daily, weekly, monthly and yearly horoscopes for love, career, finance, family, and more!</p>
+    <div class="button-container">
+      <a href="/astromall"><button class="button bg-blue">Astro Mall</button></a>
+      <a href="/bookpooja"><button class="button bg-gray">Book a Pooja</button></a>
+    </div>
+  </div>
+</div>

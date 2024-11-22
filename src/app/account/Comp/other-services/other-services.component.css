@@ -1,0 +1,88 @@
+/* astro-mall.component.css */
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding: 1rem;
+  }
+  .upper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .more{
+    color: #797979;
+    font-size: 12px;
+    font-weight:500;
+    line-height: tight;
+    padding: 0.5rem;
+    border: 1px solid;
+    background: none;
+  }
+  
+  .title {
+    color: #100e1b;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: tight;
+    padding: 1rem 0 0.75rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .card {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+  }
+  
+  .image {
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    aspect-ratio: 16 / 9; /* Maintain aspect ratio for images */
+    border-radius: 0.5rem; /* Rounded corners */
+  }
+  
+  .description {
+    color: #100e1b;
+    font-size: 1rem;
+    font-weight: medium;
+    text-align: center; /* Center text for better appearance */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 640px) {
+    .title {
+      font-size: 18px; /* Smaller font size for mobile */
+    }
+  
+    .description {
+      font-size: 0.875rem; /* Adjusted description size for mobile */
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .title {
+      font-size: 20px; /* Medium screens */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .title {
+      font-size: 22px; /* Larger screens */
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .title {
+      font-size: 24px; /* Further increase for large screens */
+    }
+  }
+  

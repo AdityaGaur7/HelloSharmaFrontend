@@ -1,0 +1,21 @@
+<div class="container mt-4">  
+    <h1 class="text-center">Our Astrologers</h1>  
+    <p class="text-center">13000+ Best Astrologers from India for Online Consultation</p>  
+    <div class="row justify-content-center">  
+      <div class="col-md-8">  
+        <div class="d-flex align-items-center justify-content-between">  
+          <button class="btn btn-secondary" (click)="moveAstrologer(-1)">&lt;</button>  
+          <div class="astrologer-wrapper">  
+            <div class="astrologer-container" [ngStyle]="{'transform': 'translateX(' + translateX + 'px)'}">  
+              <div class="astrologer-card" *ngFor="let astrologer of astrologers">  
+                <img [src]="astrologer.image" alt="{{ astrologer.name }}" class="astrologer-image">  
+                <h5 class="astrologer-name">{{ astrologer.name }}</h5>  
+                <p class="astrologer-specialty">{{ astrologer.specialty }}</p>  
+              </div>  
+            </div>  
+          </div>  
+          <button class="btn btn-secondary" (click)="moveAstrologer(1)">&gt;</button>  
+        </div>  
+      </div>  
+    </div>  
+  </div>

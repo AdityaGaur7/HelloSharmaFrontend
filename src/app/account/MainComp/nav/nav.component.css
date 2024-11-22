@@ -1,0 +1,41 @@
+.nav {
+    background-color: #f8f9fa; /* Light background color */
+    padding: 15px 0; /* Vertical padding */
+  }
+  
+  .navbar-brand h2 {
+    margin: 0; /* Remove default margin */
+  }
+  
+  .nav-link {
+    color: #495057; /* Darker text color */
+    font-weight: 500; /* Medium weight for better visibility */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .nav-link:hover {
+    color: #007bff; /* Change text color on hover */
+  }
+  
+  .dropdown-menu {
+    min-width: 100px; /* Set minimum width for dropdown */
+  }
+  
+  .dropdown-item:hover {
+    background-color: #e2e6ea; /* Highlight on hover */
+  }
+  
+  .border {
+    border-color: #007bff; /* Custom border color */
+  }
+  
+  .btn-outline-primary {
+    border-color: #007bff; /* Border color for the button */
+    color: #007bff; /* Text color for the button */
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff; /* Background color on hover */
+    color: white; /* Change text color on hover */
+  }
+  
