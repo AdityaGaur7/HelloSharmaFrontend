@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-nav2',
   standalone: true,
-  imports: [RouterLink,CommonModule ,FontAwesomeModule],
+  imports: [RouterLink,CommonModule,FontAwesomeModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
