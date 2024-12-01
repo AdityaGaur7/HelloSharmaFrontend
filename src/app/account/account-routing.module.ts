@@ -10,6 +10,7 @@ import { ErrorComponent } from './Comp/error/error.component';
 import { AdminComponent } from './AdminComp/admin/admin.component';
 import { LoginComponent } from './AuthComp/login/login.component';
 import { SignupComponent } from './AuthComp/signup/signup.component';
+import { ChatComponent } from './Comp/chat/chat.component';
 const routes: Routes = [
   
   { path: '', component: HomeComponent, title: "Home"},
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'chatastro', component: ChatastroComponent, title: "Chatastro" },
   { path: 'login', component: LoginComponent, title: "Chatastro" },
   { path: 'signup', component: SignupComponent, title: "Chatastro" },
-
+  {path:'chat',component:ChatComponent,title:"chater"},
   { path: 'blog', component: BlogComponent, title: "Blog" },
   { path: 'admin', component: AdminComponent, title: "Admin" },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },

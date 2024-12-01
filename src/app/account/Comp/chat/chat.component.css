@@ -1,0 +1,78 @@
+/* Chat box height */
+.chat-box {
+    height: 70vh;  /* Set chat box height to 70% of the viewport */
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    background-image: url('../../../../assets/images/images/chat_bg.png');
+    background-size: cover;
+  }
+  
+  /* Smooth scrolling for chat box */
+  .card-body {
+    scroll-behavior: smooth;
+  }
+  
+  /* Styling for message bubbles */
+  .card-body .d-flex {
+    margin-bottom: 1rem;
+  }
+  
+  /* Message bubble styles */
+  .bg-light {
+    background-color: #f1f1f1 !important;
+    border: 1px solid #ddd;
+  }
+  
+  .bg-primary {
+    background-color: #007bff !important;
+  }
+  
+  .text-white {
+    color: #fff;
+  }
+  
+  .card-footer {
+    border-top: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  /* Placeholder text styling */
+  ::placeholder {
+    color: #a0a0a0;
+    font-style: italic;
+  }
+  
+  /* Input box focus effect */
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Custom styles for button */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-outline-light {
+    border-color: #fff;
+  }
+  
+  .is-invalid {
+    border-color: #dc3545;
+  }
+  
+  /* Styling for the chat header */
+  .card-header {
+    border-radius: 12px 12px 0 0;
+    padding: 15px;
+  }
+  
+  /* Styling the container */
+  .container-fluid {
+    padding: 0;
+    background-color: #f7f7f7;
+  }
+  
+  
