@@ -208,7 +208,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^18.0.0", "@angular/core@^18.0.0-rc.0", "@angular/core@^18.0.1", "@angular/core@^18.2.0", "@angular/core@>=12.0.0", "@angular/core@>=14", "@angular/core@>=15.0.0-0", "@angular/core@>=16.0.0", "@angular/core@>=16.0.0-0", "@angular/core@>=6.0.0", "@angular/core@18.2.7", "@angular/core@18.2.8":
+"@angular/core@^17.0.0", "@angular/core@^18.0.0", "@angular/core@^18.0.0-rc.0", "@angular/core@^18.0.1", "@angular/core@^18.2.0", "@angular/core@>=12.0.0", "@angular/core@>=14", "@angular/core@>=15.0.0-0", "@angular/core@>=16.0.0", "@angular/core@>=16.0.0-0", "@angular/core@>=6.0.0", "@angular/core@18.2.7", "@angular/core@18.2.8":
   version "18.2.7"
   resolved "https://registry.npmjs.org/@angular/core/-/core-18.2.7.tgz"
   integrity sha512-hLOxgxLiyWm9iVHBsUsJfx1hDsXWZnfJBlr+N7cev53f0CDoPfbshqq6KV+JFqXFDguzR9dKHm1ewT1jK3e6Tw==
@@ -1686,6 +1686,32 @@
   version "1.0.3"
   resolved "https://registry.npmjs.org/@firebase/webchannel-wrapper/-/webchannel-wrapper-1.0.3.tgz"
   integrity sha512-2xCRM9q9FlzGZCdgDMJwc0gyUkWFtkosy7Xxr6sFgQwn+wMNIWd7xIvYNauU1r64B5L5rsGKy/n9TKJ0aAFeqQ==
+
+"@fortawesome/angular-fontawesome@^0.14.1":
+  version "0.14.1"
+  resolved "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.14.1.tgz"
+  integrity sha512-Yb5HLiEOAxjSLEcaOM51CKIrzdfvoDafXVJERm9vufxfZkVZPZJgrZRgqwLVpejgq4/Ez6TqHZ6SqmJwdtRF6g==
+  dependencies:
+    tslib "^2.6.2"
+
+"@fortawesome/fontawesome-common-types@6.7.1":
+  version "6.7.1"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.7.1.tgz"
+  integrity sha512-gbDz3TwRrIPT3i0cDfujhshnXO9z03IT1UKRIVi/VEjpNHtSBIP2o5XSm+e816FzzCFEzAxPw09Z13n20PaQJQ==
+
+"@fortawesome/fontawesome-svg-core@~1.2.27 || ~1.3.0-beta2 || ^6.1.0":
+  version "6.7.1"
+  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.7.1.tgz"
+  integrity sha512-8dBIHbfsKlCk2jHQ9PoRBg2Z+4TwyE3vZICSnoDlnsHA6SiMlTwfmW6yX0lHsRmWJugkeb92sA0hZdkXJhuz+g==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.7.1"
+
+"@fortawesome/free-solid-svg-icons@^6.7.1":
+  version "6.7.1"
+  resolved "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.7.1.tgz"
+  integrity sha512-BTKc0b0mgjWZ2UDKVgmwaE0qt0cZs6ITcDgjrti5f/ki7aF5zs+N91V6hitGo3TItCFtnKg6cUVGdTmBFICFRg==
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "6.7.1"
 
 "@grpc/grpc-js@~1.9.0":
   version "1.9.15"

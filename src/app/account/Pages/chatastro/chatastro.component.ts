@@ -7,12 +7,11 @@ import { SortComponent } from '../../Comp/sort/sort.component';
 import { FormsModule } from '@angular/forms';
 import { NaviComponent } from '../../MainComp/nav2/nav.component';
 import { FooterComponent } from '../../MainComp/footer/footer.component';
-NaviComponent
-FooterComponent
+
 @Component({
   selector: 'app-chatastro',
   standalone: true,
-  imports: [CommonModule, FilterComponent, SortComponent,FormsModule,FooterComponent,NaviComponent],
+  imports: [CommonModule, FilterComponent, SortComponent, FormsModule, FooterComponent, NaviComponent],
   templateUrl: './chatastro.component.html',
   styleUrls: ['./chatastro.component.css']
 })
@@ -21,7 +20,7 @@ export class ChatastroComponent implements OnInit {
   filteredAstrologers: Astrologer[] = [];
   searchQuery: string = '';
 
-  constructor(private astrologerService: AstrologerService) { }
+  constructor(private astrologerService: AstrologerService) {}
 
   ngOnInit(): void {
     this.loadAstrologers();
@@ -32,6 +31,7 @@ export class ChatastroComponent implements OnInit {
       (data) => {
         this.astrologers = data;
         this.filteredAstrologers = data; // Initialize filtered astrologers
+        console.log(this.astrologers);
       },
       (error) => {
         console.error('Error fetching astrologers:', error);
@@ -39,17 +39,18 @@ export class ChatastroComponent implements OnInit {
     );
   }
 
-  onSearch(query: Event): void {
-    const target = query.target as HTMLInputElement; // Type the target as HTMLInputElement
-    this.searchQuery = target.value; // Access the value
+  onSearch(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.searchQuery = target.value;
     this.applyFilters();
   }
 
   applyFilters(filters?: { expertise?: string; language?: string }): void {
-    this.filteredAstrologers = this.astrologers.filter(astrologer => {
-      const matchesName = astrologer.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+    this.filteredAstrologers = this.astrologers.filter((astrologer) => {
+      const fullName = `${astrologer.firstName} ${astrologer.lastName}`.toLowerCase();
+      const matchesName = fullName.includes(this.searchQuery.toLowerCase());
       const matchesExpertise = filters?.expertise ? astrologer.expertise === filters.expertise : true;
-      const matchesLanguage = filters?.language ? astrologer.languages.includes(filters.language) : true;
+      const matchesLanguage = filters?.language ? astrologer.languages?.includes(filters.language) : true;
       return matchesName && matchesExpertise && matchesLanguage;
     });
   }
@@ -61,13 +62,17 @@ export class ChatastroComponent implements OnInit {
   onSortChanged(sortKey: string): void {
     this.filteredAstrologers.sort((a, b) => {
       if (sortKey === 'name') {
-        return a.name.localeCompare(b.name);
+        const fullNameA = `${a.firstName} ${a.lastName}`;
+        const fullNameB = `${b.firstName} ${b.lastName}`;
+        return fullNameA.localeCompare(fullNameB);
       } else if (sortKey === 'experience') {
-        return 1;
-        // b.experience - a.experience;
-         // Assuming experience is a number
+        const expA = parseInt(a.experience || '0', 10);
+        const expB = parseInt(b.experience || '0', 10);
+        return expB - expA; // Sort by experience (descending)
       } else if (sortKey === 'price') {
-        return a.price === 'FREE' ? -1 : b.price === 'FREE' ? 1 : +a.price - +b.price; // Sorting logic for price
+        const priceA = a.price === 'FREE' ? 0 : parseInt(a.price || '0', 10);
+        const priceB = b.price === 'FREE' ? 0 : parseInt(b.price || '0', 10);
+        return priceA - priceB; // Sort by price (ascending)
       }
       return 0;
     });

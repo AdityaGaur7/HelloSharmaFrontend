@@ -15,8 +15,12 @@
       <input type="hidden" formControlName="id">
 
       <div class="mb-3">
-        <label for="name" class="form-label">Astrologer Name</label>
-        <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter astrologer name" required>
+        <label for="name" class="form-label">First Name</label>
+        <input type="text" id="firstName" formControlName="firstName" class="form-control" placeholder="Enter astrologer name" required>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">last Name</label>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control" placeholder="Enter astrologer name" required>
       </div>
 
       <div class="mb-3">
@@ -91,7 +95,8 @@
       <tbody>
         <tr *ngFor="let astrologer of astrologers">
           <td>{{ astrologer.id }}</td>
-          <td>{{ astrologer.name }}</td>
+          <td>{{ astrologer.firstName }}</td>
+          <td>{{ astrologer.lastName }}</td>
           <td>{{ astrologer.expertise }}</td>
           <td>{{ astrologer.languages }}</td>
           <td>{{ astrologer.experience }}</td>
@@ -100,7 +105,7 @@
           <td>{{ astrologer.rating }}</td>
           <td>{{ astrologer.status }}</td>
           <td>
-            <img *ngIf="astrologer.imageUrl" [src]="astrologer.imageUrl" alt="{{ astrologer.name }}" class="img-thumbnail" style="max-width: 100px;">
+            <img *ngIf="astrologer.imageUrl" [src]="astrologer.imageUrl" alt="{{ astrologer.firstName }}" class="img-thumbnail" style="max-width: 100px;">
           </td>
           <td>
             <button (click)="editAstrologer(astrologer.id)" class="btn btn-warning">Edit</button>

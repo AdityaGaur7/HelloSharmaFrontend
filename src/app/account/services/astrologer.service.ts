@@ -8,7 +8,7 @@ import { getJwtToken } from '../utils/jwt.util';
   providedIn: 'root'
 })
 export class AstrologerService {
-  private baseUrl = 'http://localhost:8080/api/astrologers'; // Update with your API URL
+  private baseUrl = 'http://localhost:8080/api/v1/astrologers'; // Update with your API URL
 
   constructor(private http: HttpClient) {}
   private createHeaders(): HttpHeaders {
@@ -22,7 +22,7 @@ export class AstrologerService {
     return headers;
   }
   getAllAstrologers(): Observable<Astrologer[]> {
-    return this.http.get<Astrologer[]>(this.baseUrl,{ headers: this.createHeaders() });
+    return this.http.get<Astrologer[]>(this.baseUrl);
   }
 
   getAstrologerById(id: number): Observable<Astrologer> {

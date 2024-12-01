@@ -22,23 +22,31 @@
 
   <!-- Astrologer Cards -->
   <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let astrologer of filteredAstrologers">
+    <div class="col-md-4 mb-4" *ngFor="let astrologer of astrologers">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-center">
-            <img [src]="astrologer.imageUrl" alt="{{ astrologer.name }}" class="rounded-circle mr-3" style="width: 60px; height: 60px;">
+            <img [src]="astrologer.imageUrl || 'assets/default-avatar.png'" 
+                 alt="{{ astrologer.firstName }} {{ astrologer.lastName }}" 
+                 class="rounded-circle mr-3" 
+                 style="width: 60px; height: 60px;">
             <div>
-              <h5>{{ astrologer.name }}</h5>
-              <p>{{ astrologer.expertise }}<br> {{ astrologer.languages }}</p>
-              <small>Exp: {{ astrologer.experience }}</small>
+              <h5>{{ astrologer.firstName }} {{ astrologer.lastName }}</h5>
+              <p>
+                {{ astrologer.expertise || 'N/A' }}<br> 
+                {{ astrologer.languages || 'N/A' }}
+              </p>
+              <small>Exp: {{ astrologer.experience || 'N/A' }}</small>
             </div>
             <span *ngIf="astrologer.status" class="badge badge-info ml-auto">{{ astrologer.status }}</span>
           </div>
 
           <div class="d-flex justify-content-between align-items-center mt-3">
             <div>
-              <p class="mb-0">Orders: {{ astrologer.orders }}</p>
-              <p class="mb-0 text-success" [ngClass]="{ 'text-danger': astrologer.price === 'FREE' }">{{ astrologer.price }}/min</p>
+              <p class="mb-0">Orders: {{ astrologer.orders || 0 }}</p>
+              <p class="mb-0 text-success" [ngClass]="{ 'text-danger': astrologer.price === 'FREE' }">
+                {{ astrologer.price || 'N/A' }}/min
+              </p>
             </div>
             <div class="d-flex gap-2">
               <button class="btn btn-outline-success">Chat</button>

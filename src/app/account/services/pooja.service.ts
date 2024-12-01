@@ -25,12 +25,12 @@ export class PoojaService {
 
   // Fetch all poojas
   getAllPoojas(): Observable<Pooja[]> {
-    return this.http.get<Pooja[]>(this.apiUrl, { headers: this.createHeaders() });
+    return this.http.get<Pooja[]>(this.apiUrl);
   }
 
   // Fetch pooja by id
   getPoojaById(id: number): Observable<Pooja> {
-    return this.http.get<Pooja>(`${this.apiUrl}/${id}`, { headers: this.createHeaders() });
+    return this.http.get<Pooja>(`${this.apiUrl}/${id}`);
   }
 
   // Create new pooja
@@ -45,6 +45,6 @@ export class PoojaService {
 
   // Delete a pooja
   deletePooja(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}` , { headers: this.createHeaders() });
   }
 }

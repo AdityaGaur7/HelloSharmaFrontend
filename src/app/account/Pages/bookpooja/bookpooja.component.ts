@@ -20,6 +20,51 @@ export class BookpoojaComponent implements OnInit {
   filteredPoojas: Pooja[] = [];
   searchText: string = '';
 
+ DUMMY_POOJAS: Pooja[] = [
+    {
+      id: 1,
+      title: 'Ganesh Puja',
+      description: 'A sacred ceremony to invoke Lord Ganesh for blessings.',
+      date: '2024-12-01',
+      image: 'https://example.com/images/ganesh.jpg',
+      link: 'https://example.com/ganesh-puja'
+    },
+    {
+      id: 2,
+      title: 'Navagraha Homa',
+      description: 'A ritual for pacifying the nine planets for peace and prosperity.',
+      date: '2024-12-05',
+      image: 'https://example.com/images/navagraha.jpg',
+      link: 'https://example.com/navagraha-homa'
+    },
+    {
+      id: 3,
+      title: 'Rudra Abhishekam',
+      description: 'A powerful Vedic ritual dedicated to Lord Shiva.',
+      date: '2024-12-10',
+      image: 'https://example.com/images/rudra.jpg',
+      link: 'https://example.com/rudra-abhishekam'
+    },
+    {
+      id: 4,
+      title: 'Durga Saptashati Path',
+      description: 'A recitation of 700 verses in praise of Goddess Durga.',
+      date: '2024-12-15',
+      image: 'https://example.com/images/durga.jpg',
+      link: 'https://example.com/durga-path'
+    },
+    {
+      id: 5,
+      title: 'Satyanarayan Katha',
+      description: 'A popular ritual to seek blessings for prosperity and happiness.',
+      date: '2024-12-20',
+      image: 'https://example.com/images/satyanarayan.jpg',
+      link: 'https://example.com/satyanarayan-katha'
+    }
+  ];
+
+  
+
   constructor(private poojaService: PoojaService) {}
 
   ngOnInit(): void {

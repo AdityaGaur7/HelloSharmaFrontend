@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   invalidLogin: boolean = false; 
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
             role:"user"
             };
         
-            localStorage.setItem('userData', JSON.stringify(userData));
+            localStorage.setItem('HSLocalStorage', JSON.stringify(userData));
   
           // Navigate to the dashboard
           this.router.navigateByUrl('/');

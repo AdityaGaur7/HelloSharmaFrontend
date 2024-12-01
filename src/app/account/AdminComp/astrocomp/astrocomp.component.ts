@@ -24,7 +24,8 @@ export class AstrocompComponent {
 
   astroForm = new FormGroup({
     id: new FormControl(0),
-    name: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
     expertise: new FormControl('', Validators.required),
     languages: new FormControl('', Validators.required),
     experience: new FormControl('', Validators.required),
@@ -81,7 +82,8 @@ export class AstrocompComponent {
     this.astrologerService.getAstrologerById(id).subscribe((astrologer: Astrologer) => {
       this.astroForm.patchValue({
         id: astrologer.id,
-        name: astrologer.name,
+        firstName: astrologer.firstName,
+        lastName: astrologer.lastName,
         expertise: astrologer.expertise,
         languages: astrologer.languages,
         experience: astrologer.experience,
@@ -145,7 +147,8 @@ export class AstrocompComponent {
 
     const astrologer: Astrologer = {
       id: this.astroForm.value.id ?? 0,
-      name: this.astroForm.value.name ?? '',
+      firstName: this.astroForm.value.firstName ?? '',
+      lastName: this.astroForm.value.lastName ?? '',
       expertise: this.astroForm.value.expertise ?? '',
       languages: this.astroForm.value.languages ?? '',
       experience: this.astroForm.value.experience ?? '',
