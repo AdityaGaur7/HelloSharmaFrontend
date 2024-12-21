@@ -11,11 +11,13 @@ import { AdminComponent } from './AdminComp/admin/admin.component';
 import { LoginComponent } from './AuthComp/login/login.component';
 import { SignupComponent } from './AuthComp/signup/signup.component';
 import { ChatComponent } from './Comp/chat/chat.component';
+import { ChatcompComponent } from './Pages/chat-comp/chat-comp.component';
 const routes: Routes = [
   
   { path: '', component: HomeComponent, title: "Home"},
-  // { path: 'main', component: MainComponent, title: "Main" },
+  { path: 'main', component: MainComponent, title: "Main" },
   { path: 'bookpooja', component: BookpoojaComponent, title: "BookPooja" },
+  { path: 'chatcomp', component: ChatcompComponent, title: "BookPooja" },
   { path: 'astromall', component: AstromallComponent, title: "AstrolMall" },
   { path: 'chatastro', component: ChatastroComponent, title: "Chatastro" },
   { path: 'login', component: LoginComponent, title: "Chatastro" },
