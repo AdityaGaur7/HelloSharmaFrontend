@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { tap } from 'rxjs/operators';
+import { JwtService } from './jwt.service';
 
 //const BASE_URL=['http://iveg-server.ap-south-1.elasticbeanstalk.com/']
 const BASE_URL = ['http://localhost:8080/api/v1/auth/'];
@@ -11,8 +12,8 @@ const BASE_URL = ['http://localhost:8080/api/v1/auth/'];
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
-  constructor(private http: HttpClient) {
-    // Initialize loggedIn state based on token presence
+
+  constructor(private http: HttpClient, private jwtService: JwtService) {
     this.loggedIn.next(this.isAuthenticated());
   }
 
@@ -23,17 +24,14 @@ export class AuthService {
   }
 
   login(loginRequest: any): Observable<any> {
-    return this.http.post(BASE_URL + 'login', loginRequest);
-  }
-
-  private createAuthorizationHeader() {
-    const jwtToken = localStorage.getItem('JWT');
-    if (jwtToken) {
-      return new HttpHeaders().set('Authorization', 'Bearer ' + jwtToken);
-    } else {
-      console.log('JWT token not found in the Local Storage');
-    }
-    return null;
+    return this.http.post(BASE_URL + 'login', loginRequest).pipe(
+      tap((response: any) => {
+        if (response?.jwt) {
+          localStorage.setItem('HSLocalStorage', JSON.stringify(response));
+          this.loggedIn.next(true);
+        }
+      })
+    );
   }
 
   isAuthenticated(): boolean {
@@ -41,7 +39,7 @@ export class AuthService {
       const userData = localStorage.getItem('HSLocalStorage');
       if (userData) {
         const parsedData = JSON.parse(userData);
-        if (parsedData && parsedData.jwt) {
+        if (parsedData && parsedData.jwt && !this.jwtService.isTokenExpired()) {
           this.loggedIn.next(true);
           return true;
         }
@@ -58,7 +56,6 @@ export class AuthService {
     this.loggedIn.next(false);
   }
 
-  // Optional: Add method to get current auth state as observable
   getAuthState(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }

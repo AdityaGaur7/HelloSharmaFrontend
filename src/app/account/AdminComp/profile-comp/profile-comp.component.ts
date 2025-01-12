@@ -1,30 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-comp',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './profile-comp.component.html',
-  styleUrl: './profile-comp.component.css'
+  styleUrls: ['./profile-comp.component.css'],
 })
-export class ProfileCompComponent {
-  public data: any = null;
-  user :any;
+export class ProfileCompComponent implements OnInit {
+  public user: any = {
+    username: 'Loading...',
+    email: 'Loading...',
+    address: 'Loading...',
+    description: 'Loading...',
+    imageurl: 'assets/default-avatar.png',
+  };
 
-  constructor() {   
+  constructor() {
     try {
-      this.data =localStorage.getItem('userData');
-      this.data = JSON.parse(this.data)
-     this.user = this.data;
-      console.log(this.user);
-      
+      const userData = localStorage.getItem('userData');
+      if (userData) {
+        this.user = JSON.parse(userData);
+      }
     } catch (e) {
-      console.error('Local storage is not accessible:', e);
-      this.data = null;
+      console.error('Error loading user data:', e);
     }
-  
-}
+  }
 
   ngOnInit(): void {
+    // Add any initialization logic here
+  }
+
+  onImageUpload(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      // Handle image upload logic here
+    }
+  }
+
+  updateProfile(): void {
+    // Handle profile update logic here
+  }
+
+  updateSettings(): void {
+    // Handle settings update logic here
   }
 }

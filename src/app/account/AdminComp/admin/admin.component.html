@@ -1,23 +1,77 @@
-<div class="container-fluid mt-5 ">
-    <div class="row">
-      <div class="col-md-2 sidebar border">
-        <ul class="list-group">
-          <li class="list-group-item" (click)="activeSection = 'profile'">Profile</li>
-          <li class="list-group-item" (click)="activeSection = 'astrologers'">Astrologers</li>
-          <li class="list-group-item" (click)="activeSection = 'client'">Client</li>
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="assets/logo.png" alt="Logo" class="sidebar-logo">
+      <h5 class="mb-0">Admin Dashboard</h5>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-section-title">MAIN MENU</span>
+        <ul class="nav-items">
+          <li [class.active]="activeSection === 'profile'" (click)="activeSection = 'profile'">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+          </li>
+          <li [class.active]="activeSection === 'astrologers'" (click)="activeSection = 'astrologers'">
+            <i class="fas fa-star"></i>
+            <span>Astrologers</span>
+          </li>
+          <li [class.active]="activeSection === 'client'" (click)="activeSection = 'client'">
+            <i class="fas fa-users"></i>
+            <span>Clients</span>
+          </li>
         </ul>
       </div>
-  
-      <div class="col-md-10 main-content">
-        <!-- Profile Section -->
-        <app-profile-comp *ngIf="activeSection === 'profile'"></app-profile-comp>
-  
-        <!-- Astrologers Section -->
-        <app-astrocomp *ngIf="activeSection === 'astrologers'"></app-astrocomp>
-  
-        <!-- Client Section -->
-        <app-client-comp *ngIf="activeSection === 'client'"></app-client-comp>
+
+      <div class="nav-section mt-auto">
+        <span class="nav-section-title">ACCOUNT</span>
+        <ul class="nav-items">
+          <li>
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </li>
+          <li class="text-danger">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </li>
+        </ul>
       </div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="content-header">
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-icon" (click)="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search...">
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-icon">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </button>
+        <div class="user-menu">
+          <img src="assets/default-avatar.png" alt="User" class="avatar">
+          <span class="d-none d-md-inline">Admin User</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dynamic Content -->
+    <div class="content-body">
+      <app-profile-comp *ngIf="activeSection === 'profile'"></app-profile-comp>
+      <app-astrocomp *ngIf="activeSection === 'astrologers'"></app-astrocomp>
+      <app-client-comp *ngIf="activeSection === 'client'"></app-client-comp>
     </div>
-  </div>
-  
+  </main>
+</div>

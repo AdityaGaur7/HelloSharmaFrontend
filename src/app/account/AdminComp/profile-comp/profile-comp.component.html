@@ -1,42 +1,106 @@
-<div class="container mt-5">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <img
-            src="{{user.imageurl}}"
-            class="card-img-top img-fluid rounded-circle"
-            alt="Profile Image"
-          />
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ user.username }}</h5>
-            <p class="card-text">{{ user.description }}</p>
-            <a href="/edituser/{{user.id}}" class="btn btn-primary">Edit Profile</a>
-          </div>
-        </div>
+<div class="profile-container">
+  <!-- Profile Header -->
+  <div class="profile-header">
+    <div class="header-content">
+      <div class="profile-image-wrapper">
+        <img [src]="user.imageurl || 'assets/default-avatar.png'" alt="Profile Image" class="profile-image">
+        <button class="btn btn-light btn-sm edit-photo">
+          <i class="fas fa-camera"></i>
+        </button>
       </div>
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">
-            <h5>Profile Details</h5>
+      <div class="profile-info">
+        <h2>{{ user.username }}</h2>
+        <p class="text-muted">{{ user.description || 'Admin User' }}</p>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <span class="stat-value">124</span>
+            <span class="stat-label">Astrologers</span>
           </div>
-          <div class="card-body">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <strong>Email:</strong> {{ user.email }}
-              </li>
-              <!-- <li class="list-group-item">
-                <strong>Phone:</strong> {{ user.phone }}
-              </li> -->
-              <li class="list-group-item">
-                <strong>Location:</strong> {{ user.address }}
-              </li>
-              <!-- <li class="list-group-item">
-                <strong>Member Since:</strong> {{ user.memberSince }}
-              </li> -->
-            </ul>
+          <div class="stat-item">
+            <span class="stat-value">1.2k</span>
+            <span class="stat-label">Users</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">₹45k</span>
+            <span class="stat-label">Revenue</span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <!-- Profile Content -->
+  <div class="profile-content">
+    <div class="row g-4">
+      <!-- Personal Information -->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Personal Information</h5>
+              <button class="btn btn-primary btn-sm">
+                <i class="fas fa-edit me-2"></i>Edit
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="info-group">
+              <label>Full Name</label>
+              <p>{{ user.username }}</p>
+            </div>
+            <div class="info-group">
+              <label>Email</label>
+              <p>{{ user.email }}</p>
+            </div>
+            <div class="info-group">
+              <label>Location</label>
+              <p>{{ user.address || 'Not specified' }}</p>
+            </div>
+            <div class="info-group">
+              <label>Role</label>
+              <span class="badge bg-primary">Administrator</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Settings -->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Account Settings</h5>
+          </div>
+          <div class="card-body">
+            <div class="settings-group">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6>Two-Factor Authentication</h6>
+                  <p class="text-muted mb-0">Add an extra layer of security</p>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                </div>
+              </div>
+            </div>
+            <div class="settings-group">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6>Email Notifications</h6>
+                  <p class="text-muted mb-0">Receive activity updates</p>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="emailNotif" checked>
+                </div>
+              </div>
+            </div>
+            <div class="settings-group">
+              <button class="btn btn-danger btn-sm">
+                <i class="fas fa-shield-alt me-2"></i>Change Password
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

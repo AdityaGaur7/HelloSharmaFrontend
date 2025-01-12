@@ -1,15 +1,15 @@
 <h2 class="text-center bg-gradient btn-dark border p-4">MANAGE CLIENTS</h2>
 
-<div class="container mt-5" >
-    <h2 class="mb-4">Client List</h2>
-    
-    <!-- Toggle Button -->
-    <!-- <button class="btn btn-dark mb-3" (click)="toggleForm()">
+<div class="container mt-5">
+  <h2 class="mb-4">Client List</h2>
+
+  <!-- Toggle Button -->
+  <!-- <button class="btn btn-dark mb-3" (click)="toggleForm()">
       {{ formVisible ? 'Hide Form' : 'Add New Client' }}
     </button> -->
-  
-    <!-- Conditionally Show Form -->
-    <!-- <div *ngIf="formVisible">
+
+  <!-- Conditionally Show Form -->
+  <!-- <div *ngIf="formVisible">
       <form >
         <div class="mb-3">
           <label for="name" class="form-label">Product Name</label>
@@ -69,42 +69,41 @@
       
       
     </div> -->
-  
-    <!-- Product Table -->
-    <table class="table table-striped mt-4" >
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Stock</th>
-          <th>Price</th>
-          <th>Category</th>
-          <th>Gender</th>
-          <th>Image</th>
-          <th>Link</th>
-          <th>Visited</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.id }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.description }}</td>
-          <td>{{ product.stock }}</td>
-          <td>{{ product.price  }}</td>
-          <td>{{ product.category }}</td>
-          <td>{{ product.gender }}</td>
-          <td><img src="{{product.image}}" alt="" width="auto" height="80px"></td>
-          <td><a href="{{ product.link }}">link</a></td>
-          <td>{{ product.sold }}</td>
-          <td>
-            <button class="btn btn-warning btn-sm me-2" (click)="editProduct(product.id)">Edit</button>
-            <button class="btn btn-danger btn-sm" >Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+
+  <!-- Product Table -->
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Stock</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Gender</th>
+        <th>Image</th>
+        <th>Link</th>
+        <th>Visited</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.gender }}</td>
+        <td><img src="{{product.image}}" alt="" width="auto" height="80px"></td>
+        <td><a href="{{ product.link }}">link</a></td>
+        <td>{{ product.sold }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editProduct(product.id)">Edit</button>
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

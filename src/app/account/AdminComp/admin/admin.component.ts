@@ -7,13 +7,23 @@ import { AstrocompComponent } from '../astrocomp/astrocomp.component';
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule,ProfileCompComponent,AstrocompComponent,ClientCompComponent],
+  imports: [
+    CommonModule,
+    ProfileCompComponent,
+    AstrocompComponent,
+    ClientCompComponent,
+  ],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent {
-  activeSection: string = 'profile'; // Default section to display
+  activeSection: string = 'profile';
+  isSidebarVisible: boolean = true;
 
   constructor() {}
 
+  toggleSidebar(): void {
+    this.isSidebarVisible = !this.isSidebarVisible;
+    document.querySelector('.sidebar')?.classList.toggle('show');
+  }
 }

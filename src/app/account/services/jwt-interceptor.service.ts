@@ -1,18 +1,26 @@
-import { HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwtDecode';
 
 import { Observable, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class JwtInterceptorService implements HttpInterceptor  {
-
+export class JwtInterceptorService implements HttpInterceptor {
   constructor(private jwtHelper: JwtHelperService, private router: Router) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('JWT');
 
     if (token) {
@@ -26,7 +34,7 @@ export class JwtInterceptorService implements HttpInterceptor  {
 
       // If token is valid, clone the request and add the Authorization header
       const cloned = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${token}`)
+        headers: req.headers.set('Authorization', `Bearer ${token}`),
       });
       return next.handle(cloned);
     }

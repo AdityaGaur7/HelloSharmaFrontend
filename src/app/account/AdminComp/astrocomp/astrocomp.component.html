@@ -1,118 +1,190 @@
-<h2 class="text-center bg-gradient btn-dark border p-4">ADMIN DASHBOARD</h2>
+<div class="astro-manager">
+  <div class="section-header">
+    <div>
+      <h2>Astrologer Management</h2>
+      <p class="text-muted">Manage your astrologer listings and details</p>
+    </div>
+    <button class="btn btn-primary" (click)="toggleForm()">
+      <i class="fas" [ngClass]="formVisible ? 'fa-minus' : 'fa-plus'"></i>
+      {{ formVisible ? 'Hide Form' : 'Add New Astrologer' }}
+    </button>
+  </div>
 
-<div class="container mt-5">
-  <h2 class="mb-4">Astrologer List</h2>
-
-  <!-- Toggle Button -->
-  <button class="btn btn-dark mb-3" (click)="toggleForm()">
-    {{ formVisible ? 'Hide Form' : 'Add New Astrologer' }}
-  </button>
-
-  <!-- Conditionally Show Form -->
-  <div *ngIf="formVisible">
-    <form [formGroup]="astroForm" (ngSubmit)="addOrUpdateAstrologer()">
-      <!-- ID (hidden field) -->
-      <input type="hidden" formControlName="id">
-
-      <div class="mb-3">
-        <label for="name" class="form-label">First Name</label>
-        <input type="text" id="firstName" formControlName="firstName" class="form-control" placeholder="Enter astrologer name" required>
+  <!-- Add/Edit Form -->
+  <div class="form-section" *ngIf="formVisible" [@slideInOut]>
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">{{ isEditing ? 'Edit Astrologer' : 'Add New Astrologer' }}</h5>
+        <button class="btn btn-icon" (click)="toggleForm()">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      <div class="mb-3">
-        <label for="name" class="form-label">last Name</label>
-        <input type="text" id="lastName" formControlName="lastName" class="form-control" placeholder="Enter astrologer name" required>
-      </div>
+      <div class="card-body">
+        <form [formGroup]="astroForm" (ngSubmit)="addOrUpdateAstrologer()" class="row g-3">
+          <input type="hidden" formControlName="id">
 
-      <div class="mb-3">
-        <label for="expertise" class="form-label">Expertise</label>
-        <input type="text" id="expertise" formControlName="expertise" class="form-control" placeholder="Enter expertise" required>
-      </div>
+          <!-- Personal Details -->
+          <div class="col-md-6">
+            <label class="form-label">First Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="text" formControlName="firstName" class="form-control" placeholder="Enter first name">
+            </div>
+          </div>
 
-      <div class="mb-3">
-        <label for="languages" class="form-label">Languages</label>
-        <input type="text" id="languages" formControlName="languages" class="form-control" placeholder="Enter languages" required>
-      </div>
+          <div class="col-md-6">
+            <label class="form-label">Last Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="text" formControlName="lastName" class="form-control" placeholder="Enter last name">
+            </div>
+          </div>
 
-      <div class="mb-3">
-        <label for="experience" class="form-label">Experience (years)</label>
-        <input type="number" id="experience" formControlName="experience" class="form-control" placeholder="Enter experience" min="0" required>
-      </div>
+          <!-- Professional Details -->
+          <div class="col-md-6">
+            <label class="form-label">Expertise</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-star"></i></span>
+              <input type="text" formControlName="expertise" class="form-control" placeholder="e.g., Vedic Astrology">
+            </div>
+          </div>
 
-      <div class="mb-3">
-        <label for="orders" class="form-label">Orders</label>
-        <input type="number" id="orders" formControlName="orders" class="form-control" placeholder="Enter number of orders" min="0" required>
-      </div>
+          <div class="col-md-6">
+            <label class="form-label">Languages</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-language"></i></span>
+              <input type="text" formControlName="languages" class="form-control" placeholder="e.g., Hindi, English">
+            </div>
+          </div>
 
-      <div class="mb-3">
-        <label for="price" class="form-label">Astrologer Price</label>
-        <input type="number" id="price" formControlName="price" class="form-control" placeholder="Enter astrologer price" step="0.01" min="0" required>
-      </div>
+          <!-- Experience & Stats -->
+          <div class="col-md-4">
+            <label class="form-label">Experience (years)</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+              <input type="number" formControlName="experience" class="form-control" min="0">
+            </div>
+          </div>
 
-      <div class="mb-3">
-        <label for="rating" class="form-label">Rating</label>
-        <input type="number" id="rating" formControlName="rating" class="form-control" placeholder="Enter rating" min="0" max="5" required>
-      </div>
+          <div class="col-md-4">
+            <label class="form-label">Orders Completed</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-tasks"></i></span>
+              <input type="number" formControlName="orders" class="form-control" min="0">
+            </div>
+          </div>
 
-      <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <select id="status" formControlName="status" class="form-select">
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-      </div>
+          <div class="col-md-4">
+            <label class="form-label">Price (₹/min)</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
+              <input type="number" formControlName="price" class="form-control" min="0">
+            </div>
+          </div>
 
-      <div class="mb-3">
-        <label for="image" class="form-label">Image</label>
-        <input type="file" id="image" (change)="handleImageUpload($event)" class="form-control" accept="image/*">
-        <small *ngIf="selectedImage" class="form-text text-success">Image selected: {{ selectedImage.name }}</small>
-      </div>
+          <!-- Rating & Status -->
+          <div class="col-md-6">
+            <label class="form-label">Rating</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-star"></i></span>
+              <input type="number" formControlName="rating" class="form-control" min="0" max="5" step="0.1">
+            </div>
+          </div>
 
-      <button type="submit" class="btn btn-primary">
-        {{ isEditing ? 'Update Astrologer' : 'Add Astrologer' }}
-      </button>
-    </form>
+          <div class="col-md-6">
+            <label class="form-label">Status</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+              <select formControlName="status" class="form-select">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Image Upload -->
+          <div class="col-12">
+            <label class="form-label">Profile Image</label>
+            <div class="image-upload-container">
+              <input type="file" id="image" (change)="handleImageUpload($event)" class="form-control" accept="image/*">
+              <small *ngIf="selectedImage" class="text-success">
+                <i class="fas fa-check-circle me-1"></i>Selected: {{ selectedImage.name }}
+              </small>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary" [disabled]="!astroForm.valid">
+              <i class="fas" [ngClass]="isEditing ? 'fa-save' : 'fa-plus-circle'"></i>
+              {{ isEditing ? 'Update Astrologer' : 'Add Astrologer' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <!-- Astrologer List -->
-  <div class="mt-5">
-    <h3>Current Astrologers</h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Expertise</th>
-          <th>Languages</th>
-          <th>Experience</th>
-          <th>Orders</th>
-          <th>Price</th>
-          <th>Rating</th>
-          <th>Status</th>
-          <th>Image</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let astrologer of astrologers">
-          <td>{{ astrologer.id }}</td>
-          <td>{{ astrologer.firstName }}</td>
-          <td>{{ astrologer.lastName }}</td>
-          <td>{{ astrologer.expertise }}</td>
-          <td>{{ astrologer.languages }}</td>
-          <td>{{ astrologer.experience }}</td>
-          <td>{{ astrologer.orders }}</td>
-          <td>{{ astrologer.price }}</td>
-          <td>{{ astrologer.rating }}</td>
-          <td>{{ astrologer.status }}</td>
-          <td>
-            <img *ngIf="astrologer.imageUrl" [src]="astrologer.imageUrl" alt="{{ astrologer.firstName }}" class="img-thumbnail" style="max-width: 100px;">
-          </td>
-          <td>
-            <button (click)="editAstrologer(astrologer.id)" class="btn btn-warning">Edit</button>
-            <button (click)="deleteAstrologer(astrologer.id)" class="btn btn-danger">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="table-section">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>Profile</th>
+                <th>Name</th>
+                <th>Expertise</th>
+                <th>Experience</th>
+                <th>Rating</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let astrologer of astrologers">
+                <td>
+                  <img [src]="astrologer.imageUrl || 'assets/default-avatar.png'" [alt]="astrologer.firstName"
+                    class="avatar">
+                </td>
+                <td>
+                  <div class="d-flex flex-column">
+                    <span class="fw-medium">{{ astrologer.firstName }} {{ astrologer.lastName }}</span>
+                    <small class="text-muted">{{ astrologer.languages }}</small>
+                  </div>
+                </td>
+                <td>{{ astrologer.expertise }}</td>
+                <td>{{ astrologer.experience }} years</td>
+                <td>
+                  <div class="rating">
+                    <span class="badge bg-success-subtle text-success">
+                      <i class="fas fa-star"></i> {{ astrologer.rating }}
+                    </span>
+                  </div>
+                </td>
+                <td>₹{{ astrologer.price }}/min</td>
+                <td>
+                  <span class="badge" [ngClass]="astrologer.status === 'active' ? 'bg-success' : 'bg-danger'">
+                    {{ astrologer.status }}
+                  </span>
+                </td>
+                <td>
+                  <div class="actions">
+                    <button class="btn btn-icon btn-light" (click)="editAstrologer(astrologer.id)">
+                      <i class="fas fa-edit text-primary"></i>
+                    </button>
+                    <button class="btn btn-icon btn-light" (click)="deleteAstrologer(astrologer.id)">
+                      <i class="fas fa-trash text-danger"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
