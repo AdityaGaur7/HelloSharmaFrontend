@@ -1,9 +1,10 @@
 export interface AstroStore {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    image: string;
-    link: string;
-    tag: string;
-  }
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  link: string;
+  tag: string;
+  category: string;
+}
