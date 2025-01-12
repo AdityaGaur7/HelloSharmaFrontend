@@ -1,36 +1,101 @@
-<app-nav2></app-nav2>
-<!-- src/app/components/astromall.component.html -->
-<div class="container mt-4">
-  <h1 class="text-center">Astromall Shop</h1>
-  <p class="text-center">Shop Best Online Astrology Products And Services</p>
-
-  <div class="input-group mb-4">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Let's find what you're looking for..."
-      [(ngModel)]="searchText" 
-      (input)="filterProducts()" 
-      aria-label="Search"
-    />
-    <!-- Removed the search button since we want dynamic filtering -->
+<app-nav></app-nav>
+<div class="container py-4 bg-light">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
+          <div>
+            <h4 class="mb-1"><i class="fas fa-store text-primary me-2"></i>Astromall Shop</h4>
+            <p class="text-muted mb-0">Discover Premium Astrology Products & Services</p>
+          </div>
+          <div class="d-flex gap-3">
+            <button class="btn btn-outline-primary">
+              <i class="fas fa-shopping-cart me-2"></i>Cart
+              <span class="badge bg-primary ms-1">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let product of filteredProducts"> <!-- Use filteredProducts -->
-      <div class="card">
-        <img [src]="product.image" class="card-img-top" alt="{{ product.title }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ product.title }}</h5>
-          <p class="card-text">{{ product.description }}</p>
-          <p class="text-danger">Starts at ₹{{ product.price }}</p>
-          <a [routerLink]="product.link" class="btn btn-primary">View Details</a>
+  <!-- Search and Categories Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body p-3">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="fas fa-search text-muted"></i>
+                </span>
+                <input type="text" class="form-control border-start-0" placeholder="Search products..."
+                  [(ngModel)]="searchText" (input)="filterProducts()">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex gap-2 flex-wrap justify-content-md-end">
+                <button class="btn btn-outline-secondary" *ngFor="let category of categories">
+                  {{ category }}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-footer">
-          <small class="text-muted">{{ product.tag }}</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="row">
+    <div class="col-md-4 col-lg-3 mb-4" *ngFor="let product of filteredProducts">
+      <div class="card h-100 shadow-sm hover-card">
+        <div class="product-img-wrapper">
+          <img [src]="product.image" class="card-img-top" [alt]="product.title">
+          <div class="product-badge" *ngIf="product.tag">
+            <span class="badge bg-primary">{{ product.tag }}</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title mb-2">{{ product.title }}</h5>
+          <p class="card-text text-muted">{{ product.description }}</p>
+          <div class="product-details mt-3">
+            <div class="price-tag">
+              <small class="text-muted">Starting from</small>
+              <div class="price">₹{{ product.price }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-top-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-primary btn-sm" (click)="showDetails(product)">
+              <i class="fas fa-info-circle me-1"></i>Details
+            </button>
+            <button class="btn btn-primary btn-sm">
+              <i class="fas fa-shopping-cart me-1"></i>Add to Cart
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Product Details Modal -->
+<div class="modal fade" id="productDetailsModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Product Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Modal content will be populated dynamically -->
+      </div>
+    </div>
+  </div>
+</div>
+
 <app-footer></app-footer>

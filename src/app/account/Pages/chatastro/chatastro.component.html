@@ -1,58 +1,109 @@
-<app-nav2></app-nav2>
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-12 text-center mb-4 d-flex justify-content-center gap-5">
-      <button class="btn btn-warning btn-lg">Connect with Astrologer</button>
-      <h6 class="ml-3 d-flex align-items-center justify-content-center">Available balance: ₹0</h6>
-      <button class="btn btn-outline-success ml-3">Recharge</button>
+<app-nav></app-nav>
+<div class="container py-4 bg-light">
+  <!-- Header Section with Balance -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
+          <h4 class="mb-0"><i class="fas fa-phone-alt text-primary me-2"></i>Connect with Astrologer</h4>
+          <div class="d-flex align-items-center gap-3">
+            <div class="balance-box bg-light p-3 rounded">
+              <small class="text-muted">Available Balance</small>
+              <h5 class="mb-0">₹0.00</h5>
+            </div>
+            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#rechargeModal">
+              <i class="fas fa-wallet me-2"></i>Recharge
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  
-
-  <!-- Search, Filter, and Sort section -->
-  <div class="row mb-3 justify-content-between">
-    <div class="col-md-4 d-flex gap-2">
-      <app-filter (filterApplied)="onFilterApplied($event)"></app-filter>
-      <app-sort (sortChanged)="onSortChanged($event)"></app-sort>
-    </div>
-    <div class="col-md-4 text-right">
-      <input type="text" class="form-control d-inline" placeholder="Search name..." style="width: 70%;" (input)="onSearch($event)">
-      <button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+  <!-- Search and Filter Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body p-3">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="fas fa-search text-muted"></i>
+                </span>
+                <input type="text" class="form-control border-start-0" placeholder="Search astrologers..."
+                  (input)="onSearch($event)">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex gap-3 justify-content-end">
+                <app-filter (filterApplied)="onFilterApplied($event)" class="w-auto"></app-filter>
+                <app-sort (sortChanged)="onSortChanged($event)" class="w-auto"></app-sort>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Astrologer Cards -->
   <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let astrologer of astrologers">
-      <div class="card">
+    <div class="col-md-4 mb-4" *ngFor="let astrologer of filteredAstrologers">
+      <div class="card h-100 shadow-sm hover-card">
         <div class="card-body">
-          <div class="d-flex align-items-center">
-            <img [src]="astrologer.imageUrl || 'assets/default-avatar.png'" 
-                 alt="{{ astrologer.firstName }} {{ astrologer.lastName }}" 
-                 class="rounded-circle mr-3" 
-                 style="width: 60px; height: 60px;">
-            <div>
-              <h5>{{ astrologer.firstName }} {{ astrologer.lastName }}</h5>
-              <p>
-                {{ astrologer.expertise || 'N/A' }}<br> 
-                {{ astrologer.languages || 'N/A' }}
-              </p>
-              <small>Exp: {{ astrologer.experience || 'N/A' }}</small>
+          <div class="d-flex align-items-center mb-3">
+            <div class="position-relative">
+              <img [src]="astrologer.imageUrl || 'assets/default-avatar.png'"
+                alt="{{ astrologer.firstName }} {{ astrologer.lastName }}" class="rounded-circle me-3 astrologer-img">
+              <span class="position-absolute bottom-0 end-0 p-1 bg-success rounded-circle"
+                *ngIf="astrologer.status === 'Online'">
+              </span>
             </div>
-            <span *ngIf="astrologer.status" class="badge badge-info ml-auto">{{ astrologer.status }}</span>
+            <div class="flex-grow-1">
+              <h5 class="mb-1">{{ astrologer.firstName }} {{ astrologer.lastName }}</h5>
+              <p class="mb-1 text-muted">
+                <i class="fas fa-star text-warning me-1"></i>
+                <small>{{ astrologer.expertise || 'Vedic Astrology' }}</small>
+              </p>
+              <p class="mb-0">
+                <small class="text-muted">
+                  <i class="fas fa-language me-1"></i>
+                  {{ astrologer.languages || 'Hindi, English' }}
+                </small>
+              </p>
+            </div>
           </div>
 
-          <div class="d-flex justify-content-between align-items-center mt-3">
-            <div>
-              <p class="mb-0">Orders: {{ astrologer.orders || 0 }}</p>
-              <p class="mb-0 text-success" [ngClass]="{ 'text-danger': astrologer.price === 'FREE' }">
-                {{ astrologer.price || 'N/A' }}/min
-              </p>
+          <div class="row align-items-center">
+            <div class="col-6">
+              <div class="d-flex flex-column">
+                <small class="text-muted">Experience</small>
+                <span><i class="fas fa-medal me-1 text-primary"></i>{{ astrologer.experience || '0' }} Years</span>
+              </div>
             </div>
+            <div class="col-6">
+              <div class="d-flex flex-column text-end">
+                <small class="text-muted">Price</small>
+                <span class="text-success fw-bold">₹{{ astrologer.price || '0' }}/min</span>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">
+              <i class="fas fa-users me-1"></i>
+              {{ astrologer.orders || '0' }} consultations
+            </small>
             <div class="d-flex gap-2">
-              <button class="btn btn-outline-success">Chat</button>
-              <button class="btn btn-outline-success">Call</button>
+              <button class="btn btn-outline-primary btn-sm" [class.disabled]="astrologer.status !== 'Online'">
+                <i class="fas fa-comments me-1"></i>Chat
+              </button>
+              <button class="btn btn-primary btn-sm" [class.disabled]="astrologer.status !== 'Online'">
+                <i class="fas fa-phone-alt me-1"></i>Call
+              </button>
             </div>
           </div>
         </div>
@@ -60,4 +111,33 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>
+
+<!-- Recharge Modal -->
+<div class="modal fade" id="rechargeModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Recharge Wallet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Select Amount</label>
+          <div class="d-flex gap-2 flex-wrap">
+            <button class="btn btn-outline-primary" *ngFor="let amount of [100, 200, 500, 1000]">
+              ₹{{amount}}
+            </button>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Or Enter Custom Amount</label>
+          <input type="number" class="form-control" placeholder="Enter amount">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Proceed to Pay</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,29 +1,90 @@
-<app-nav2></app-nav2>
-<div class="container mt-4">
-  <h2>Book a Pooja</h2>
-  <div class="input-group mb-3">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Let's find what you're looking for..."
-      [(ngModel)]="searchText"
-      (keyup)="filterPoojas()"  
-      aria-label="Search"
-    />
+<app-nav></app-nav>
+<div class="container py-4 bg-light">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
+          <div>
+            <h4 class="mb-1"><i class="fas fa-pray text-primary me-2"></i>Book a Pooja</h4>
+            <p class="text-muted mb-0">Find the perfect pooja for your spiritual needs</p>
+          </div>
+          <button class="btn btn-primary">
+            <i class="fas fa-calendar-plus me-2"></i>Schedule Consultation
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let pooja of poojas">
-      <div class="card">
-        <img [src]="pooja.image" class="card-img-top" alt="{{ pooja.title }}" />
-        <div class="card-body">
-          <h5 class="card-title">{{ pooja.title }}</h5>
-          <p class="card-text">{{ pooja.description }}</p>
-          <p class="card-text">
-            <small class="text-muted">{{ pooja.date }}</small>
-          </p>
-          <a [routerLink]="pooja.link" class="btn btn-primary">Book Now</a>
+  <!-- Search Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body p-3">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0">
+              <i class="fas fa-search text-muted"></i>
+            </span>
+            <input type="text" class="form-control border-start-0" placeholder="Search for poojas..."
+              [(ngModel)]="searchText" (keyup)="filterPoojas()">
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pooja Cards Grid -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let pooja of filteredPoojas">
+      <div class="card h-100 shadow-sm hover-card">
+        <div class="card-img-wrapper">
+          <img [src]="pooja.image || 'assets/default-pooja.jpg'" class="card-img-top" alt="{{ pooja.title }}">
+          <div class="card-img-overlay d-flex align-items-start justify-content-end">
+            <span class="badge bg-primary">
+              <i class="fas fa-clock me-1"></i>{{ pooja.duration || '1 hour' }}
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title mb-2">{{ pooja.title }}</h5>
+          <p class="card-text text-muted mb-3">{{ pooja.description }}</p>
+          <div class="pooja-details mb-3">
+            <div class="detail-item">
+              <i class="fas fa-calendar text-primary me-2"></i>
+              <small>{{ pooja.date | date:'mediumDate' }}</small>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-rupee-sign text-success me-2"></i>
+              <small>Starts from ₹{{ pooja.price || '1100' }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-top-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-primary btn-sm" (click)="showDetails(pooja)">
+              <i class="fas fa-info-circle me-1"></i>View Details
+            </button>
+            <button class="btn btn-primary btn-sm" [routerLink]="['/book-pooja', pooja.id]">
+              <i class="fas fa-calendar-check me-1"></i>Book Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="poojaDetailsModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pooja Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Modal content will be dynamically populated -->
       </div>
     </div>
   </div>

@@ -1,30 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser, faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
+
 @Component({
-  selector: 'app-nav2',
+  selector: 'app-nav',
   standalone: true,
-  imports: [RouterLink,CommonModule,FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule],
   templateUrl: './nav.component.html',
-  styleUrl: './nav.component.css',
+  styleUrls: ['./nav.component.css'],
 })
-export class NaviComponent {
+export class NavComponent {
   faUser = faUser;
   faGlobe = faGlobe;
-  isMenuOpen = false;
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
-  onLogout() {
+  logout() {
     this.authService.logout();
-  
-
-
+    this.router.navigate(['/login']);
   }
 }

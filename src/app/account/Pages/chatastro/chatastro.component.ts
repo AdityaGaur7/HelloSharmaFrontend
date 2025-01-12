@@ -5,15 +5,24 @@ import { CommonModule } from '@angular/common';
 import { FilterComponent } from '../../Comp/filter/filter.component';
 import { SortComponent } from '../../Comp/sort/sort.component';
 import { FormsModule } from '@angular/forms';
-import { NaviComponent } from '../../MainComp/nav2/nav.component';
+import { NavComponent } from '../../MainComp/nav2/nav.component';
 import { FooterComponent } from '../../MainComp/footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chatastro',
   standalone: true,
-  imports: [CommonModule, FilterComponent, SortComponent, FormsModule, FooterComponent, NaviComponent],
+  imports: [
+    CommonModule,
+    FilterComponent,
+    SortComponent,
+    FormsModule,
+    FooterComponent,
+    NavComponent,
+    NgbModule,
+  ],
   templateUrl: './chatastro.component.html',
-  styleUrls: ['./chatastro.component.css']
+  styleUrls: ['./chatastro.component.css'],
 })
 export class ChatastroComponent implements OnInit {
   astrologers: Astrologer[] = [];
@@ -47,10 +56,15 @@ export class ChatastroComponent implements OnInit {
 
   applyFilters(filters?: { expertise?: string; language?: string }): void {
     this.filteredAstrologers = this.astrologers.filter((astrologer) => {
-      const fullName = `${astrologer.firstName} ${astrologer.lastName}`.toLowerCase();
+      const fullName =
+        `${astrologer.firstName} ${astrologer.lastName}`.toLowerCase();
       const matchesName = fullName.includes(this.searchQuery.toLowerCase());
-      const matchesExpertise = filters?.expertise ? astrologer.expertise === filters.expertise : true;
-      const matchesLanguage = filters?.language ? astrologer.languages?.includes(filters.language) : true;
+      const matchesExpertise = filters?.expertise
+        ? astrologer.expertise === filters.expertise
+        : true;
+      const matchesLanguage = filters?.language
+        ? astrologer.languages?.includes(filters.language)
+        : true;
       return matchesName && matchesExpertise && matchesLanguage;
     });
   }
