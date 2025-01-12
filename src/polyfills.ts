@@ -49,10 +49,26 @@ import '@angular/localize/init';
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js';  // Included with Angular CLI.
-
+// Zone.js is now imported via angular.json
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
- (window as any)['global'] = window;
+(window as any).global = window;
+(window as any).process = {
+  env: {
+    DEBUG: undefined,
+    NODE_ENV: 'production',
+  },
+  browser: true,
+  version: '',
+  versions: {},
+  nextTick: function (fn: Function) {
+    setTimeout(fn, 0);
+  },
+};
+
+// Add Buffer to window
+(window as any).Buffer = (window as any).Buffer || require('buffer').Buffer;
+
+// Add any other polyfills your application needs here

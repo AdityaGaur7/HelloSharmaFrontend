@@ -4,7 +4,7 @@ import SockJS from 'sockjs-client';
 import { Subject, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
   private stompClient: Client;
@@ -13,11 +13,12 @@ export class ChatService {
   constructor() {
     // Initialize Stomp Client
     this.stompClient = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8080/chat-websocket-native'),
-      debug: (str) => console.log(str), // Optional: For debugging
-      reconnectDelay: 5000, // Auto-reconnect every 5 seconds
-      heartbeatIncoming: 4000, // Heartbeat interval for incoming messages
-      heartbeatOutgoing: 4000 // Heartbeat interval for outgoing messages
+      webSocketFactory: () =>
+        new SockJS('http://localhost:8080/chat-websocket-native'),
+      debug: (str) => console.log(str),
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
     });
   }
 
@@ -31,7 +32,7 @@ export class ChatService {
 
       this.stompClient.publish({
         destination: '/app/chat.addUser',
-        body: JSON.stringify({ sender: username, type: 'JOIN' })
+        body: JSON.stringify({ sender: username, type: 'JOIN' }),
       });
     };
 
@@ -46,7 +47,7 @@ export class ChatService {
     if (this.stompClient.connected) {
       this.stompClient.publish({
         destination: '/app/chat.sendMessage',
-        body: JSON.stringify(chatMessage)
+        body: JSON.stringify(chatMessage),
       });
     } else {
       console.error('Unable to send message: WebSocket is not connected.');
