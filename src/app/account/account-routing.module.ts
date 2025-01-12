@@ -16,6 +16,9 @@ import { ProfileComponent } from './Pages/profile/profile.component';
 import { OrderHistoryComponent } from './Pages/order-history/order-history.component';
 import { WalletComponent } from './Pages/wallet/wallet.component';
 import { AdminGuard } from './guards/admin.guard';
+import { AstrologerDashboardComponent } from './AstrologerComp/astrologer-dashboard/astrologer-dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AstrologerGuard } from './guards/astrologer.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, title: 'Home' },
@@ -41,6 +44,12 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, title: 'Profile' },
   { path: 'orders', component: OrderHistoryComponent, title: 'Order History' },
   { path: 'wallet', component: WalletComponent, title: 'Wallet' },
+  {
+    path: 'astrologer-dashboard',
+    component: AstrologerDashboardComponent,
+    title: 'Astrologer Dashboard',
+    canActivate: [AuthGuard, AstrologerGuard],
+  },
   { path: '**', component: ErrorComponent, title: 'Page not found' },
 ];
 

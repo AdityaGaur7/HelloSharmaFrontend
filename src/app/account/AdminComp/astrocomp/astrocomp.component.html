@@ -10,6 +10,19 @@
     </button>
   </div>
 
+  <!-- Add at the top of the component -->
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = null"></button>
+  </div>
+
+  <!-- Add loading spinner -->
+  <div *ngIf="loading" class="text-center my-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
   <!-- Add/Edit Form -->
   <div class="form-section" *ngIf="formVisible" [@slideInOut]>
     <div class="card">
@@ -28,7 +41,11 @@
             <label class="form-label">First Name</label>
             <div class="input-group">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
-              <input type="text" formControlName="firstName" class="form-control" placeholder="Enter first name">
+              <input type="text" formControlName="firstName" class="form-control"
+                [ngClass]="{'is-invalid': isFieldInvalid('firstName')}" placeholder="Enter first name">
+              <div class="invalid-feedback" *ngIf="isFieldInvalid('firstName')">
+                {{ getErrorMessage('firstName') }}
+              </div>
             </div>
           </div>
 

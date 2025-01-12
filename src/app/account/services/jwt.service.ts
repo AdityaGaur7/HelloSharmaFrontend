@@ -44,4 +44,8 @@ export class JwtService {
     const currentTime = Math.floor(Date.now() / 1000);
     return decodedToken.exp < currentTime;
   }
+
+  isAstrologer(): boolean {
+    return this.getUserRole() === 'ASTRO';
+  }
 }

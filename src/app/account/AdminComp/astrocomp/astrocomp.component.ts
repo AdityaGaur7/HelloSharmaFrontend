@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase-config';
 import { AstrologerService } from '../../services/astrologer.service';
 import { Astrologer } from '../../models/astrologer.model';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-astrocomp',
@@ -34,7 +41,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ]),
   ],
 })
-export class AstrocompComponent {
+export class AstrocompComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+  loading = false;
+  error: string | null = null;
   formVisible: boolean = false;
   astrologers: Astrologer[] = [];
   selectedImage: File | null = null;
@@ -60,160 +70,229 @@ export class AstrocompComponent {
   });
 
   constructor(
+    private fb: FormBuilder,
     private astrologerService: AstrologerService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private router: Router
+  ) {
+    this.initForm();
+  }
+
+  private initForm(): void {
+    this.astroForm = this.fb.group({
+      id: [0],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      expertise: ['', [Validators.required]],
+      languages: ['', [Validators.required]],
+      experience: ['', [Validators.required, Validators.min(0)]],
+      orders: [0, [Validators.required, Validators.min(0)]],
+      price: ['', [Validators.required, Validators.min(0)]],
+      rating: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
+      status: ['active', Validators.required],
+      imageUrl: [''],
+    });
+  }
 
   ngOnInit(): void {
-    this.getAstrologers();
-    this.route.params.subscribe((params) => {
-      if (params['id']) {
-        this.editAstrologerId = +params['id'];
-        this.isEditing = true;
-        this.loadProductData(this.editAstrologerId);
+    this.loadAstrologers();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  loadAstrologers(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.astrologerService
+      .getAllAstrologers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data) => {
+          this.astrologers = data;
+          this.loading = false;
+        },
+        error: (error) => {
+          this.error = error.message;
+          this.loading = false;
+        },
+      });
+  }
+
+  async addOrUpdateAstrologer(): Promise<void> {
+    if (this.astroForm.invalid) {
+      this.markFormGroupTouched(this.astroForm);
+      return;
+    }
+
+    this.loading = true;
+    this.error = null;
+
+    try {
+      let imageUrl = this.astroForm.get('imageUrl')?.value || '';
+
+      if (this.selectedImage) {
+        const imageRef = ref(
+          storage,
+          `astrologers/${Date.now()}_${this.selectedImage.name}`
+        );
+        await uploadBytes(imageRef, this.selectedImage);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      const astrologer: Astrologer = {
+        id: this.astroForm.value.id ?? 0,
+        firstName: this.astroForm.value.firstName ?? '',
+        lastName: this.astroForm.value.lastName ?? '',
+        expertise: this.astroForm.value.expertise ?? '',
+        languages: this.astroForm.value.languages ?? '',
+        experience: this.astroForm.value.experience ?? '',
+        orders: this.astroForm.value.orders ?? 0,
+        price: this.astroForm.value.price ?? '',
+        rating: this.astroForm.value.rating ?? 0,
+        status: this.astroForm.value.status ?? 'active',
+        imageUrl: imageUrl,
+      };
+
+      if (this.isEditing && this.editAstrologerId) {
+        this.astrologerService
+          .updateAstrologer(this.editAstrologerId, astrologer)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe({
+            next: () => {
+              this.handleSuccess('Astrologer updated successfully');
+            },
+            error: (error) => {
+              this.handleError(error);
+            },
+          });
+      } else {
+        this.astrologerService
+          .addAstrologer(astrologer)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe({
+            next: () => {
+              this.handleSuccess('Astrologer added successfully');
+            },
+            error: (error) => {
+              this.handleError(error);
+            },
+          });
+      }
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  deleteAstrologer(id: number): void {
+    if (!confirm('Are you sure you want to delete this astrologer?')) {
+      return;
+    }
+
+    this.loading = true;
+    this.error = null;
+
+    this.astrologerService
+      .deleteAstrologer(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.handleSuccess('Astrologer deleted successfully');
+        },
+        error: (error) => {
+          this.handleError(error);
+        },
+      });
+  }
+
+  private handleSuccess(message: string): void {
+    this.loading = false;
+    this.error = null;
+    alert(message); // Consider using a proper notification service
+    this.loadAstrologers();
+    this.resetForm();
+  }
+
+  private handleError(error: any): void {
+    this.loading = false;
+    this.error = error.message || 'An error occurred';
+    console.error('Operation failed:', error);
+  }
+
+  private resetForm(): void {
+    this.astroForm.reset({ status: 'active' });
+    this.selectedImage = null;
+    this.isEditing = false;
+    this.editAstrologerId = null;
+    this.formVisible = false;
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup): void {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
       }
     });
+  }
+
+  // Validation helpers
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.astroForm.get(fieldName);
+    return field ? field.invalid && (field.dirty || field.touched) : false;
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const control = this.astroForm.get(fieldName);
+    if (!control) return '';
+
+    if (control.hasError('required')) return `${fieldName} is required`;
+    if (control.hasError('minlength'))
+      return `${fieldName} must be at least ${control.errors?.['minlength'].requiredLength} characters`;
+    if (control.hasError('min'))
+      return `${fieldName} must be at least ${control.errors?.['min'].min}`;
+    if (control.hasError('max'))
+      return `${fieldName} must be at most ${control.errors?.['max'].max}`;
+
+    return '';
   }
 
   toggleForm(): void {
     this.formVisible = !this.formVisible;
     if (!this.formVisible) {
-      this.astroForm.reset();
-      this.isEditing = false;
-      this.editAstrologerId = null;
-      this.selectedImage = null;
-    }
-  }
-
-  getAstrologers(): void {
-    this.astrologerService
-      .getAllAstrologers()
-      .subscribe((data: Astrologer[]) => {
-        this.astrologers = data;
-      });
-  }
-
-  deleteAstrologer(id: number): void {
-    if (confirm('Are you sure you want to delete this astrologer?')) {
-      this.astrologerService.deleteAstrologer(id).subscribe(() => {
-        console.log('Astrologer deleted');
-        this.getAstrologers(); // Refresh the product list after deletion
-      });
+      this.resetForm();
     }
   }
 
   editAstrologer(id: number): void {
-    this.isEditing = true;
-    this.editAstrologerId = id;
-
-    // Load astrologer data to populate the form
-    this.astrologerService
-      .getAstrologerById(id)
-      .subscribe((astrologer: Astrologer) => {
-        this.astroForm.patchValue({
-          id: astrologer.id,
-          firstName: astrologer.firstName,
-          lastName: astrologer.lastName,
-          expertise: astrologer.expertise,
-          languages: astrologer.languages,
-          experience: astrologer.experience,
-          orders: astrologer.orders,
-          price: astrologer.price,
-          rating: astrologer.rating,
-          status: astrologer.status,
-          imageUrl: astrologer.imageUrl,
-        });
-
-        // If there's an image URL, clear out any previously selected image
-        this.selectedImage = null;
-
-        // Make the form visible for editing
-        this.formVisible = true;
-      });
-  }
-
-  loadProductData(id: number): void {
-    this.astrologerService
-      .getAstrologerById(id)
-      .subscribe((astrologer: Astrologer) => {
-        this.astroForm.patchValue(astrologer);
-        this.selectedImage = null; // Reset image selection on edit
-      });
+    const astrologer = this.astrologers.find((a) => a.id === id);
+    if (astrologer) {
+      this.isEditing = true;
+      this.editAstrologerId = id;
+      this.astroForm.patchValue(astrologer);
+      this.formVisible = true;
+    }
   }
 
   handleImageUpload(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-
-      // Allowed file types (only images)
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
       const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-
-      // Set the maximum allowed file size (e.g., 200KB = 200 * 1024 bytes)
-      const maxSize = 200 * 1024; // 200KB
+      const maxSize = 2 * 1024 * 1024; // 2MB
 
       if (!allowedTypes.includes(file.type)) {
-        alert('Only image files (JPEG, PNG, GIF) are allowed.');
-        this.selectedImage = null; // Clear the selected image if it's not an image
-      } else if (file.size > maxSize) {
-        alert(
-          'File size should be less than 200KB. Please choose a smaller file.'
-        );
-        this.selectedImage = null; // Clear the selected image if it's too large
-      } else {
-        this.selectedImage = file; // Accept the image if it's valid
+        this.error = 'Only JPEG, PNG, and GIF images are allowed';
+        return;
       }
-    }
-  }
-
-  async addOrUpdateAstrologer() {
-    let imageUrl = '';
-    if (this.selectedImage) {
-      const imageRef = ref(
-        storage,
-        `images/${Date.now()}_${this.selectedImage.name}`
-      );
-      try {
-        await uploadBytes(imageRef, this.selectedImage);
-        imageUrl = await getDownloadURL(imageRef);
-      } catch (error) {
-        console.error('Image upload error:', error);
+      if (file.size > maxSize) {
+        this.error = 'Image size must be less than 2MB';
+        return;
       }
-    }
 
-    const astrologer: Astrologer = {
-      id: this.astroForm.value.id ?? 0,
-      firstName: this.astroForm.value.firstName ?? '',
-      lastName: this.astroForm.value.lastName ?? '',
-      expertise: this.astroForm.value.expertise ?? '',
-      languages: this.astroForm.value.languages ?? '',
-      experience: this.astroForm.value.experience ?? '',
-      orders: this.astroForm.value.orders ?? 0,
-      price: this.astroForm.value.price ?? '',
-      rating: this.astroForm.value.rating ?? 0,
-      status: this.astroForm.value.status ?? '',
-      imageUrl: (imageUrl || this.astroForm.value.imageUrl) ?? '', // Use uploaded image URL or existing URL
-    };
-
-    if (this.isEditing && this.editAstrologerId) {
-      this.astrologerService
-        .updateAstrologer(this.editAstrologerId, astrologer)
-        .subscribe((result) => {
-          console.log('Astrologer updated:', result);
-          alert('Astrologer updated successfully');
-          this.getAstrologers();
-          this.astroForm.reset();
-          this.isEditing = false;
-        });
-    } else {
-      this.astrologerService.addAstrologer(astrologer).subscribe((result) => {
-        console.log('Astrologer added:', result);
-        alert('Astrologer added successfully');
-        this.getAstrologers();
-        this.astroForm.reset();
-      });
+      this.selectedImage = file;
+      this.error = null;
     }
-    this.selectedImage = null;
   }
 }

@@ -1,0 +1,79 @@
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <img src="assets/logo.png" alt="Logo" class="sidebar-logo">
+            <h5>Astrologer Panel</h5>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <ul class="nav-items">
+                    <li [class.active]="activeSection === 'overview'" (click)="activeSection = 'overview'">
+                        <i class="fas fa-home"></i>
+                        <span>Overview</span>
+                    </li>
+                    <li [class.active]="activeSection === 'appointments'" (click)="activeSection = 'appointments'">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Appointments</span>
+                    </li>
+                    <li [class.active]="activeSection === 'chats'" (click)="activeSection = 'chats'">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat History</span>
+                    </li>
+                    <li [class.active]="activeSection === 'earnings'" (click)="activeSection = 'earnings'">
+                        <i class="fas fa-wallet"></i>
+                        <span>Earnings</span>
+                    </li>
+                    <li [class.active]="activeSection === 'profile'" (click)="activeSection = 'profile'">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Profile</span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h2>{{ activeSection | titlecase }}</h2>
+                <div class="header-actions">
+                    <button class="btn btn-light">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge bg-danger">3</span>
+                    </button>
+                    <div class="user-info">
+                        <img [src]="astrologerData?.imageUrl || 'assets/default-avatar.png'" alt="Profile"
+                            class="avatar">
+                        <span>{{ astrologerData?.name || 'Loading...' }}</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content -->
+        <div class="dashboard-content">
+            <!-- Overview Section -->
+            <div *ngIf="activeSection === 'overview'" class="overview-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3>Total Clients</h3>
+                            <p>{{ astrologerData?.totalClients || 0 }}</p>
+                        </div>
+                    </div>
+                    <!-- Add more stat cards -->
+                </div>
+            </div>
+
+            <!-- Other sections -->
+            <app-appointments *ngIf="activeSection === 'appointments'"></app-appointments>
+            <app-chat-history *ngIf="activeSection === 'chats'"></app-chat-history>
+            <app-earnings *ngIf="activeSection === 'earnings'"></app-earnings>
+            <app-astrologer-profile *ngIf="activeSection === 'profile'"></app-astrologer-profile>
+        </div>
+    </main>
+</div>

@@ -36,6 +36,12 @@
             <i class="fas fa-lock me-1"></i>Admin Panel
           </a>
         </li>
+        <!-- Astrologer Link - Only shown for astrologer users -->
+        <li class="nav-item" *ngIf="jwtService.isAstrologer()">
+          <a class="nav-link" routerLink="/astrologer-dashboard" routerLinkActive="active">
+            <i class="fas fa-star me-1"></i>Astrologer Dashboard
+          </a>
+        </li>
       </ul>
 
       <!-- Right Side Items -->
@@ -79,6 +85,11 @@
             <li *ngIf="jwtService.isAdmin()">
               <a class="dropdown-item" routerLink="/admin">
                 <i class="fas fa-lock me-2"></i>Admin Panel
+              </a>
+            </li>
+            <li *ngIf="jwtService.isAstrologer()">
+              <a class="dropdown-item" routerLink="/astrologer-dashboard">
+                <i class="fas fa-star me-2"></i>Astrologer Dashboard
               </a>
             </li>
             <li>
