@@ -1,12 +1,25 @@
 <div class="chat-container">
-  <div class="messages">
-    <div *ngFor="let message of messages" class="message">
-      <strong>{{ message.sender }}:</strong> {{ message.content }}
+  <div class="chat-header">
+    <h3>Chat with {{ receiverName }}</h3>
+  </div>
+
+  <div class="messages-container" #scrollContainer>
+    <div *ngFor="let msg of messages" [ngClass]="{'message-sent': msg.sender.id === currentUserId, 
+                    'message-received': msg.sender.id !== currentUserId}" class="message-bubble">
+      <div class="message-content">
+        {{ msg.content }}
+      </div>
+      <div class="message-timestamp">
+        {{ msg.timestamp | date:'short' }}
+      </div>
     </div>
   </div>
 
-  <div class="input-area">
-    <input [(ngModel)]="message" placeholder="Type a message..." />
-    <button (click)="sendMessage()">Send</button>
+  <div class="chat-input">
+    <input type="text" [(ngModel)]="message" (keyup.enter)="sendMessage()" placeholder="Type a message..."
+      class="message-input">
+    <button (click)="sendMessage()" class="send-button" [disabled]="!message.trim()">
+      Send
+    </button>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { NavComponent } from '../../MainComp/nav2/nav.component';
 import { FooterComponent } from '../../MainComp/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chatastro',
@@ -29,7 +30,10 @@ export class ChatastroComponent implements OnInit {
   filteredAstrologers: Astrologer[] = [];
   searchQuery: string = '';
 
-  constructor(private astrologerService: AstrologerService) {}
+  constructor(
+    private astrologerService: AstrologerService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadAstrologers();
@@ -90,5 +94,9 @@ export class ChatastroComponent implements OnInit {
       }
       return 0;
     });
+  }
+
+  startChat(astrologerId: number): void {
+    this.router.navigate(['/chat', astrologerId]);
   }
 }

@@ -59,4 +59,14 @@ export class AuthService {
   getAuthState(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
+
+  getCurrentUserId(): number {
+    const user = this.getUser();
+    return user ? user.id : 0;
+  }
+
+  private getUser(): any {
+    const userStr = localStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  }
 }
